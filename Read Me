@@ -1,6 +1,0 @@
-To Run Elanco WebPage 
-First, Open Xampp and, Select Config from Module Apache 
-Sencond, Remove semicolon from php.ini
-Run Apache 
-Save your file in xampp/htdocs 
-Run localhost/elanco 
