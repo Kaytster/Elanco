@@ -1,0 +1,6 @@
+To Run Elanco WebPage 
+First, Open Xampp and, Select Config from Module Apache 
+Sencond, Remove semicolon from extension=sqlite3 in php.ini (must use SQLite3)
+Run Apache 
+Save your file in xampp/htdocs 
+Run localhost/elanco 
