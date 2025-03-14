@@ -1,0 +1,16 @@
+.row > .coldate, .colname, .colID {
+    border-style: solid;
+    border-radius: 20px;
+    border-color: #0018b1;
+    background-color: #0067B1;
+    float: left;
+    width: 30%;
+    height: 100px;
+    margin: 10px;
+    text-align: center;
+}
+
+.row > .coldate, .colname, .colID > h3 {
+    font-size: 32px;
+    font-family: Arial, Helvetica, sans-serif;
+}
