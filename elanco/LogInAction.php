@@ -15,7 +15,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
     }
     
 
-    $db = new SQLite3('dog_data.db');
+    $db = new SQLite3('dog_data1.db');
     
 
     $stmt = $db->prepare('SELECT * FROM USER WHERE User = :username');
