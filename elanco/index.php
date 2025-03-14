@@ -18,14 +18,14 @@
   </div>
     
   <div class="login">
-    <form action="login.php" method="post">
+    <form action="LogInAction.php" method="POST">
         <label for="username">Username:</label>
         <input type="text" id="username" name="username" required>
         
         <label for="password">Password:</label>
         <input type="password" id="password" name="password" required>
         
-        <a href="#"><button type="submit" class="submit-button">Login</button></a>
+        <button type="submit" class="submit-button">Login</button>
     </form>
   </div>
 
