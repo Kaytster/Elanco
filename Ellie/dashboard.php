@@ -1,7 +1,7 @@
 <?php
 $servername = "localhost";
-$username = "root";  // Change if needed
-$password = "";      // Change if needed
+$username = "root";  //dont know how to use xampp as doesnt work for me so change this to fit xampp
+$password = "";      
 $dbname = "elanco";
 
 $conn = new mysqli($servername, $username, $password, $dbname);
@@ -10,7 +10,7 @@ if ($conn->connect_error) {
     die("Connection failed: " . $conn->connect_error);
 }
 
-$pet_name = "Snoopy";  // Hardcoded for now, but can be dynamic
+$pet_name = "Snoopy";  // probs need to change to fit the chosen dogs 
 $date = isset($_GET['date']) ? $_GET['date'] : date("Y-m-d");  
 
 $sql = "SELECT weight, behaviour, activity, heart_rate, temp, food, water, breathing_rate, barking_frequency FROM pet_stats 
