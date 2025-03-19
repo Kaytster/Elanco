@@ -39,6 +39,7 @@
             overflow: hidden;
             box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
         }
+    
         a
         {
             text-decoration: none;
@@ -61,8 +62,10 @@
             transform: scale(1.2) translateY(-5px);
             opacity: 0.8;
         }
-        
-
+        .col-md-4
+        {
+            margin-top: 100px;
+        }
     </style>
 
 </head>
