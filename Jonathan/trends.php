@@ -37,14 +37,8 @@ $columns = [
             <?php } ?>
         </select>
 
-        <!-- Date Range Inputs -->
-        <label for="start_date">Start Date:</label>
-        <input type="date" name="start_date" required>
-
-        <label for="end_date">End Date:</label>
-        <input type="date" name="end_date" required>
-
         <button type="submit">Generate Chart</button>
     </form>
 </body>
 </html>
+
