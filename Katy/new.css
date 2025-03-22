@@ -1,11 +1,17 @@
-
+.row {
+  display: flex;
+  justify-content: center;
+}
 
 .row > .card {
-    background-color: #0067B1;
-    width: 30%;
+    width: 40%;
     height: fit-content;
     margin: 10px;
     margin-bottom: 50px;
+    display: flex; /* Add flexbox to the card */
+    flex-direction: column; /* Stack card content vertically */
+    align-items: center; /* Center horizontally */
+    justify-content: center; /* Center vertically */
 }
 
 .activity-progress {
@@ -134,10 +140,25 @@
   }
 
   /* Text over image */
-  .container {
-    position: relative;
-    text-align: center;
-  }
+  /* .container {
+    margin-left: 220px;
+    margin-right: auto;
+    margin-top: 20px;
+    padding: 20px;
+    width: 80%;
+} */
+
+.card-body {
+  display: flex; /* Add flexbox to the card body */
+  flex-direction: column; /* Stack card body content vertically */
+  align-items: center; /* Center horizontally */
+  /* justify-content: center; Center vertically */
+}
+
+.card-body img {
+  display: block;
+  margin: 10px auto; /* Add some margin for spacing */
+}
 
   .centered {
     position: absolute;
@@ -147,3 +168,14 @@
     font-family: Arial, Helvetica, sans-serif;
     font-size: 24px;
   }
+
+  #myChart {
+    width: 600px;  /* Make the chart fill the card width */
+    height: 600px; /* Set a fixed height */
+    margin: auto;
+}
+
+a {
+  text-decoration: none;
+  color: black;
+}

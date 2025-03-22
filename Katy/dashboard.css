@@ -1,212 +1,63 @@
-.row > .coldate, .colname, .colID, .colweight, .colbehav, .colbark, .colactivity, .colheart, .coltemp, .colbreath, .colfood, .colcalorie, .colwater {
-    border-style: solid;
-    border-radius: 20px;
-    border-color: #0018b1;
-    background-color: #0067B1;
-    float: left;
-    width: 30%;
-    height: 150px;
-    margin: 10px;
-    margin-bottom: 50px;
+body {
+  background-color: #f8f9fa;
 }
-
-.row > .coldate {
-    text-align: center;
+.card {
+  border-radius: 15px;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+  transition: 0.3s;
+  text-align: center;
+  padding: 25px;
+  height: 100%;
 }
-.row > .colname {
-    text-align: center;
+.card:hover {
+  transform: scale(1.05);
 }
-.row > .colID {
-    text-align: center;
+.progress-circle {
+  width: 140px;
+  height: 140px;
+  position: relative;
+  display: inline-block;
+  margin: auto;
 }
-.row > .colweight {
-    text-align: center;
+.progress-circle svg {
+  transform: rotate(-90deg);
 }
-.row > .colbehav {
-    text-align: center;
+.progress-circle circle {
+  fill: none;
+  stroke-width: 12;
+  stroke-linecap: round;
 }
-.row > .colbark {
-    text-align: center;
-    height: fit-content;
+.progress-background {
+  stroke: #ddd;
 }
-.row > .colactivity {
-    text-align: center;
-    height: fit-content;
+.progress-bar {
+  stroke: #3498db;
+  stroke-dasharray: 314;
+  stroke-dashoffset: 314;
+  transition: stroke-dashoffset 1s ease-out;
 }
-
-.row > .colheart {
-    text-align: center;
-    height: fit-content;
+.progress-text {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  font-size: 22px;
+  font-weight: bold;
 }
-
-.row > .coltemp {
-    text-align: center;
-    height: fit-content;
+/* Make it mobile responsive */
+@media (max-width: 768px) {
+  .card {
+      margin-bottom: 20px;
+  }
+  .progress-circle {
+      width: 120px;
+      height: 120px;
+  }
+  .progress-text {
+      font-size: 18px;
+  }
+  .form-select {
+      font-size: 1.2rem;
+      padding: 10px;
+  }
 }
-.row > .colbreath {
-    text-align: center;
-    height: fit-content;
-}
-
-.row > .colfood {
-    text-align: center;
-    height: fit-content;
-}
-
-.row > .colcalorie {
-    text-align: center;
-    height: fit-content;
-}
-
-.row > .colwater {
-    text-align: center;
-    height: fit-content;
-}
-
-h3 {
-    font-size: 32px;
-    font-family: Arial, Helvetica, sans-serif;
-    text-decoration: underline;
-    /* text-wrap: normal; */
-}
-
-/* circle progress bar */
-.activity-progress {
-    --size: 250px;
-    --half-size: calc(var(--size) / 2);
-    --stroke-width: 20px;
-    --radius: calc((var(--size) - var(--stroke-width)) / 2);
-    --circumference: calc(var(--radius) * pi * 2);
-    --dash: calc((var(--progress) * var(--circumference)) / 100);
-  }
-  
-  .activity-progress circle {
-    cx: var(--half-size);
-    cy: var(--half-size);
-    r: var(--radius);
-    stroke-width: var(--stroke-width);
-    fill: none;
-    stroke-linecap: round;
-  }
-  
-  .activity-progress circle.bgA {
-    stroke: #ddd;
-  }
-  
-  .activity-progress circle.fgA {
-    transform: rotate(-90deg);
-    transform-origin: var(--half-size) var(--half-size);
-    stroke-dasharray: var(--dash) calc(var(--circumference) - var(--dash));
-    transition: stroke-dasharray 0.3s linear 0s;
-    stroke: #5394fd;
-  }
-
-.heart-progress {
-    --size: 250px;
-    --half-size: calc(var(--size) / 2);
-    --stroke-width: 20px;
-    --radius: calc((var(--size) - var(--stroke-width)) / 2);
-    --circumference: calc(var(--radius) * pi * 2);
-    --dash: calc((var(--progress) * var(--circumference)) / 100);
-  }
-  
-  .heart-progress circle {
-    cx: var(--half-size);
-    cy: var(--half-size);
-    r: var(--radius);
-    stroke-width: var(--stroke-width);
-    fill: none;
-    stroke-linecap: round;
-  }
-  
-  .heart-progress circle.bgH {
-    stroke: #ddd;
-  }
-  
-  .heart-progress circle.fgH {
-    transform: rotate(-90deg);
-    transform-origin: var(--half-size) var(--half-size);
-    stroke-dasharray: var(--dash) calc(var(--circumference) - var(--dash));
-    transition: stroke-dasharray 0.3s linear 0s;
-    stroke: #ecff1b;
-  }
-
-  .temp-progress {
-    --size: 250px;
-    --half-size: calc(var(--size) / 2);
-    --stroke-width: 20px;
-    --radius: calc((var(--size) - var(--stroke-width)) / 2);
-    --circumference: calc(var(--radius) * pi * 2);
-    --dash: calc((var(--progress) * var(--circumference)) / 100);
-  }
-  
-  .temp-progress circle {
-    cx: var(--half-size);
-    cy: var(--half-size);
-    r: var(--radius);
-    stroke-width: var(--stroke-width);
-    fill: none;
-    stroke-linecap: round;
-  }
-  
-  .temp-progress circle.bgT {
-    stroke: #ddd;
-  }
-  
-  .temp-progress circle.fgT {
-    transform: rotate(-90deg);
-    transform-origin: var(--half-size) var(--half-size);
-    stroke-dasharray: var(--dash) calc(var(--circumference) - var(--dash));
-    transition: stroke-dasharray 0.3s linear 0s;
-    stroke: #ecff1b;
-  }
-
-  .breath-progress {
-    --size: 250px;
-    --half-size: calc(var(--size) / 2);
-    --stroke-width: 20px;
-    --radius: calc((var(--size) - var(--stroke-width)) / 2);
-    --circumference: calc(var(--radius) * pi * 2);
-    --dash: calc((var(--progress) * var(--circumference)) / 100);
-  }
-  
-  .breath-progress circle {
-    cx: var(--half-size);
-    cy: var(--half-size);
-    r: var(--radius);
-    stroke-width: var(--stroke-width);
-    fill: none;
-    stroke-linecap: round;
-  }
-  
-  .breath-progress circle.bgB {
-    stroke: #ddd;
-  }
-  
-  .breath-progress circle.fgB {
-    transform: rotate(-90deg);
-    transform-origin: var(--half-size) var(--half-size);
-    stroke-dasharray: var(--dash) calc(var(--circumference) - var(--dash));
-    transition: stroke-dasharray 0.3s linear 0s;
-    stroke: #ffb71b;
-  }
-
-  text {
-    font-family: Arial, Helvetica, sans-serif;
-    font-size: 40px;
-  }
-
-  /* Text over image */
-  .container {
-    position: relative;
-    text-align: center;
-  }
-
-  .centered {
-    position: absolute;
-    top: 50%;
-    left: 50%;
-    transform: translate(-50%, -50%);
-    font-family: Arial, Helvetica, sans-serif;
-    font-size: 24px;
-  }
