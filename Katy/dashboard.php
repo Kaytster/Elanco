@@ -1,12 +1,11 @@
 <?php
-$dbFilePath = 'C:\Users\ktsha\Desktop\UNI WORK\Year1\Semester 2\Group\Elanco-Final.db'; // Replace with the actual path!
+$dbFilePath = 'C:\Users\ktsha\Desktop\UNI WORK\Year1\Semester 2\Group\Elanco-Final.db'; 
 
 try {
     $db = new SQLite3($dbFilePath);
     // echo "Connected to the SQLite3 database!";
 
-    // Now you can run SQL queries!
-    // Example:
+    
     
     $dogID = $db->query('SELECT Dog_ID FROM Activity WHERE Dog_ID="CANINE001" LIMIT 1 ');
 	$rowDOG = $dogID->fetchArray(SQLITE3_ASSOC); // Get the data
