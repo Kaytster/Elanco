@@ -19,11 +19,11 @@
     
   <div class="login">
     <form action="LogInAction.php" method="POST">
-        <label for="username">Username:</label>
-        <input type="text" id="username" name="username" required>
+        <label for="email">Email:<label>
+        <input type="text" id="email" name="email" required>
         
-        <label for="password">Password:</label>
-        <input type="password" id="password" name="password" required>
+        <label for="userpsswrd">Password:</label>
+        <input type="password" id="userpsswrd" name="userpsswrd" required>
         
         <button type="submit" class="submit-button">Login</button>
     </form>

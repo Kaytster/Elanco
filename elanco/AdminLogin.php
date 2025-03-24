@@ -1,3 +1,4 @@
+
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -18,19 +19,19 @@
   </div>
     
   <div class="login">
-    <form action="login.php" method="post">
-        <label for="username">Username:</label>
-        <input type="text" id="username" name="username" required>
+    <form action="LogInAction.php" method="post">
+        <label for="email">Email:</label>
+        <input type="text" id="email" name="email" required>
         
-        <label for="password">Password:</label>
-        <input type="password" id="password" name="password" required>
+        <label for="userpsswrd">Password:</label>
+        <input type="password" id="userpsswrd" name="userpsswrd" required>
         
         <button type="submit" class="submit-button">Login</button>
     </form>
   </div>
 
   <div class="user-login">
-    <a href="index.php"><button type="button" class="admin-button">Admin Login</button></a>
+    <a href="index.php"><button type="button" class="admin-button">Pet Owner Login</button></a>
   </div>
 
   <div class="dog-picture">

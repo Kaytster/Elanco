@@ -4,66 +4,50 @@ session_start();
 
 if ($_SERVER["REQUEST_METHOD"] == "POST") {
 
-    $username = $_POST['username'];  
-    $password = $_POST['password'];
+    $email = $_POST['email'];  
+    $userpsswrd = $_POST['userpsswrd'];
     
 
-    if (empty($username) || empty($password)) {
+    if (empty($email) || empty($userpsswrd)) {
         
         header("Location: index.php?error=empty_fields");
         exit();
     }
     
 
-    $db = new SQLite3('dog_data1.db');
+    $db = new SQLite3('Elanco-Final.db');
     
 
-    $stmt = $db->prepare('SELECT * FROM USER WHERE User = :username');
-    $stmt->bindValue(':username', $username, SQLITE3_TEXT); 
+    $stmt = $db->prepare('SELECT UserPsswrd FROM USER WHERE email = :email');
+    $stmt->bindValue(':email', $email, SQLITE3_TEXT); 
     $result = $stmt->execute();
     
     
     $user = $result->fetchArray(SQLITE3_ASSOC);
-    
-    
-    if (!$user) {
-        echo "User not found in database";
-        exit();
-    }
-    
-    
-    $passwordCorrect = false;
-    
-    if (isset($user['Password'])) {
-        
-        if (password_verify($password, $user['Password'])) {
-            $passwordCorrect = true;
-        } 
- 
-        else if ($password === $user['Password']) {
-            $passwordCorrect = true;
+
+    if($user)
+    {
+        $userpassowrd = $user['UserPsswrd'];
+        $useremail = $user['email'];
+
+        if($userpassowrd === $userpsswrd)
+        {
+            $_SESSION['email'] = $email;
+            $_SESSION['useremail'] = $useremail;
+            header("Location:dashboard.php");
+            exit();
+        }
+        else
+        {
+            echo "Incorrect password";
+            exit();
         }
     }
-    
-    if ($passwordCorrect) {
-        
-        $_SESSION['loggedin'] = true;
-        $_SESSION['username'] = $username;
-        
-        
-        header("Location: dashboard.php");
-        exit();
-    } else {
-        
-        header("Location: index.php?error=invalid_credentials");
-        exit();
+    else
+    {
+        echo "User not found";
     }
     
-
-    $db->close();
-
-} else {
-   
-    header("Location: index.php");
-    exit();
+    
+    
 }
