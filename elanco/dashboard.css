@@ -1,0 +1,63 @@
+body {
+  background-color: #f8f9fa;
+}
+.card {
+  border-radius: 15px;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+  transition: 0.3s;
+  text-align: center;
+  padding: 25px;
+  height: 100%;
+}
+.card:hover {
+  transform: scale(1.05);
+}
+.progress-circle {
+  width: 140px;
+  height: 140px;
+  position: relative;
+  display: inline-block;
+  margin: auto;
+}
+.progress-circle svg {
+  transform: rotate(-90deg);
+}
+.progress-circle circle {
+  fill: none;
+  stroke-width: 12;
+  stroke-linecap: round;
+}
+.progress-background {
+  stroke: #ddd;
+}
+.progress-bar {
+  stroke: #3498db;
+  stroke-dasharray: 314;
+  stroke-dashoffset: 314;
+  transition: stroke-dashoffset 1s ease-out;
+}
+.progress-text {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  font-size: 22px;
+  font-weight: bold;
+}
+/* Make it mobile responsive */
+@media (max-width: 768px) {
+  .card {
+      margin-bottom: 20px;
+  }
+  .progress-circle {
+      width: 120px;
+      height: 120px;
+  }
+  .progress-text {
+      font-size: 18px;
+  }
+  .form-select {
+      font-size: 1.2rem;
+      padding: 10px;
+  }
+}

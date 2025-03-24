@@ -5,18 +5,18 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Pet Data</title>
     <style>
-        body {
+        /* body {
             font-family: Arial, sans-serif;
             margin: 0;
             padding: 0;
             background-color: #f9f9f9;
             display: flex;
             justify-content: flex-start;
-        }
+        } */
         nav {
             background-color: #0067B1;
             color: #fff;
-            padding: 20px;
+            /* padding: 20px; */
             position: fixed;
             height: 100%;
             width: 150px;

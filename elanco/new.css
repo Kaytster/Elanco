@@ -1,0 +1,181 @@
+.row {
+  display: flex;
+  justify-content: center;
+}
+
+.row > .card {
+    width: 40%;
+    height: fit-content;
+    margin: 10px;
+    margin-bottom: 50px;
+    display: flex; /* Add flexbox to the card */
+    flex-direction: column; /* Stack card content vertically */
+    align-items: center; /* Center horizontally */
+    justify-content: center; /* Center vertically */
+}
+
+.activity-progress {
+    --size: 250px;
+    --half-size: calc(var(--size) / 2);
+    --stroke-width: 20px;
+    --radius: calc((var(--size) - var(--stroke-width)) / 2);
+    --circumference: calc(var(--radius) * pi * 2);
+    --dash: calc((var(--progress) * var(--circumference)) / 100);
+  }
+  
+  .activity-progress circle {
+    cx: var(--half-size);
+    cy: var(--half-size);
+    r: var(--radius);
+    stroke-width: var(--stroke-width);
+    fill: none;
+    stroke-linecap: round;
+  }
+  
+  .activity-progress circle.bgA {
+    stroke: #ddd;
+  }
+  
+  .activity-progress circle.fgA {
+    transform: rotate(-90deg);
+    transform-origin: var(--half-size) var(--half-size);
+    stroke-dasharray: var(--dash) calc(var(--circumference) - var(--dash));
+    transition: stroke-dasharray 0.3s linear 0s;
+    stroke: #5394fd;
+  }
+
+  .heart-progress {
+    --size: 250px;
+    --half-size: calc(var(--size) / 2);
+    --stroke-width: 20px;
+    --radius: calc((var(--size) - var(--stroke-width)) / 2);
+    --circumference: calc(var(--radius) * pi * 2);
+    --dash: calc((var(--progress) * var(--circumference)) / 100);
+  }
+  
+  .heart-progress circle {
+    cx: var(--half-size);
+    cy: var(--half-size);
+    r: var(--radius);
+    stroke-width: var(--stroke-width);
+    fill: none;
+    stroke-linecap: round;
+  }
+  
+  .heart-progress circle.bgH {
+    stroke: #ddd;
+  }
+  
+  .heart-progress circle.fgH {
+    transform: rotate(-90deg);
+    transform-origin: var(--half-size) var(--half-size);
+    stroke-dasharray: var(--dash) calc(var(--circumference) - var(--dash));
+    transition: stroke-dasharray 0.3s linear 0s;
+    stroke: #ecff1b;
+  }
+
+  .temp-progress {
+    --size: 250px;
+    --half-size: calc(var(--size) / 2);
+    --stroke-width: 20px;
+    --radius: calc((var(--size) - var(--stroke-width)) / 2);
+    --circumference: calc(var(--radius) * pi * 2);
+    --dash: calc((var(--progress) * var(--circumference)) / 100);
+  }
+  
+  .temp-progress circle {
+    cx: var(--half-size);
+    cy: var(--half-size);
+    r: var(--radius);
+    stroke-width: var(--stroke-width);
+    fill: none;
+    stroke-linecap: round;
+  }
+  
+  .temp-progress circle.bgT {
+    stroke: #ddd;
+  }
+  
+  .temp-progress circle.fgT {
+    transform: rotate(-90deg);
+    transform-origin: var(--half-size) var(--half-size);
+    stroke-dasharray: var(--dash) calc(var(--circumference) - var(--dash));
+    transition: stroke-dasharray 0.3s linear 0s;
+    stroke: #ecff1b;
+  }
+
+  .breath-progress {
+    --size: 250px;
+    --half-size: calc(var(--size) / 2);
+    --stroke-width: 20px;
+    --radius: calc((var(--size) - var(--stroke-width)) / 2);
+    --circumference: calc(var(--radius) * pi * 2);
+    --dash: calc((var(--progress) * var(--circumference)) / 100);
+  }
+  
+  .breath-progress circle {
+    cx: var(--half-size);
+    cy: var(--half-size);
+    r: var(--radius);
+    stroke-width: var(--stroke-width);
+    fill: none;
+    stroke-linecap: round;
+  }
+  
+  .breath-progress circle.bgB {
+    stroke: #ddd;
+  }
+  
+  .breath-progress circle.fgB {
+    transform: rotate(-90deg);
+    transform-origin: var(--half-size) var(--half-size);
+    stroke-dasharray: var(--dash) calc(var(--circumference) - var(--dash));
+    transition: stroke-dasharray 0.3s linear 0s;
+    stroke: #ffb71b;
+  }
+
+  text {
+    font-family: Arial, Helvetica, sans-serif;
+    font-size: 40px;
+  }
+
+  /* Text over image */
+  /* .container {
+    margin-left: 220px;
+    margin-right: auto;
+    margin-top: 20px;
+    padding: 20px;
+    width: 80%;
+} */
+
+.card-body {
+  display: flex; /* Add flexbox to the card body */
+  flex-direction: column; /* Stack card body content vertically */
+  align-items: center; /* Center horizontally */
+  /* justify-content: center; Center vertically */
+}
+
+.card-body img {
+  display: block;
+  margin: 10px auto; /* Add some margin for spacing */
+}
+
+  .centered {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    font-family: Arial, Helvetica, sans-serif;
+    font-size: 24px;
+  }
+
+  #myChart {
+    width: 600px;  /* Make the chart fill the card width */
+    height: 600px; /* Set a fixed height */
+    margin: auto;
+}
+
+a {
+  text-decoration: none;
+  color: black;
+}
