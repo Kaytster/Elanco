@@ -179,3 +179,12 @@ a {
   text-decoration: none;
   color: black;
 }
+
+.date { 
+  margin-bottom: 20px; 
+  position: absolute; 
+  top: 10px; 
+  right: 10px; 
+  z-index: 1000;
+  width: 28%; 
+}
