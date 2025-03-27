@@ -74,7 +74,7 @@
         
         </div>
     <div class="header">
-        <img src="Elanco.png" alt="Elanco">
+        <a href="dashboard.php"><img src="Elanco.png" alt="Elanco"></a>
         <p>Hello, Pet Owner</p>
     </div>
 

@@ -57,14 +57,18 @@
             margin-left: 220px;
             padding: 20px;
         }
+        nav .logo img
+        {
+            width: 100px;
+        }
     </style>
 </head>
 <body>
     <nav>
-        <img src="Elanco.png" alt="">
+        <a class="logo" href="dashboard.php"><img src="Elanco.png" alt="Elanco"></a>
         <a href="javascript:history.back()">Previous Page</a>
-        <a href="mypets.php">My Pets</a>
-        <a href="#" class="logout"><img src="logout.png" alt="">LogOut</a>
+        <a href="landingpage.php">My Pets</a>
+        <a href="AdminLogin.php" class="logout"><img src="logout.png" alt="">LogOut</a>
     </nav>
     <div class="container">
 </body>
