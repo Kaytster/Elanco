@@ -105,7 +105,8 @@ input[type="text"], input[type="password"]
     position: relative;
     overflow: hidden;
     cursor: pointer;
-    margin-left: 100px;
+    margin-left: 110px;
+    margin-top: 20px;
 }
 .submit-button:before
 {
