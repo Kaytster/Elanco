@@ -10,7 +10,7 @@
 <body>
     
   <header>
-     <img src="Elanco.png" alt="Elanco Logo">
+     <img src="Elanco.png" alt="Elanco Logo" class="fade-in">
   </header>    
 
   <div class="welcome-message">
