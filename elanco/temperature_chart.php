@@ -14,11 +14,45 @@
 <canvas id="temperatureChart"></canvas>
 </div>
 <script>
+        function createLineChart(context, label, labels, data, borderColor) {
+        new Chart(context, {
+            type: 'line',
+            data: {
+                labels: labels,
+                datasets: [{
+                    label: label,
+                    data: data,
+                    borderColor: borderColor,
+                    backgroundColor: 'rgba(0, 0, 0, 0)', // Transparent background for line
+                    fill: false,
+                    tension: 0.1
+                }]
+            },
+            options: {
+                responsive: true,
+                scales: {
+                    x: {
+                        title: {
+                            display: true,
+                            text: 'Time (Hours)'
+                        }
+                    },
+                    y: {
+                        title: {
+                            display: true,
+                            text: label
+                        }
+                    }
+                }
+            }
+        });
+    }
+
     fetch('fetch_dog_data.php')
     .then(response => response.json())
     .then(data => {
-        const hours = data.map(d => d.hour);
-        const temperatures = data.map(d => d.temperature);
+        const hours = data.map(d => d.Hour);
+        const temperatures = data.map(d => d.Temperature);
         createLineChart(document.getElementById('temperatureChart').getContext('2d'), 'Temperature (°C)', hours, temperatures, 'orange');
     });
 </script>

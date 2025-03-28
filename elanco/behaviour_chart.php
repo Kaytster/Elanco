@@ -16,29 +16,33 @@
 </div>
 <script>
     window.onload = function () {
-        fetch('fetch_dog_data.php')
-        .then(response => response.json())
-        .then(data => {
-            const behaviourCounts = {};
-            data.forEach(d => {
-                behaviourCounts[d.behaviour] = (behaviourCounts[d.behaviour] || 0) + 1;
-            });
+    fetch('fetch_dog_data.php')
+    .then(response => response.json())
+    .then(data => {
+        const behaviourCounts = {};
 
-            if (typeof createDoughnutChart !== "function") {
-                console.error("createDoughnutChart is not defined!");
-                return;
-            }
+        // Count the occurrences of each behaviourdetail
+        data.forEach(d => {
+            behaviourCounts[d.B_Desc] = (behaviourCounts[d.B_Desc] || 0) + 1;
+        });
 
-            createDoughnutChart(
-                document.getElementById('behaviourDoughnutChart').getContext('2d'),
-                'Behaviour Pattern',
-                Object.keys(behaviourCounts),
-                Object.values(behaviourCounts),
-                ['red', 'blue', 'green', 'yellow', 'purple']
-            );
-        })
-        .catch(error => console.error("Error fetching data:", error));
-    };
+        if (typeof createDoughnutChart !== "function") {
+            console.error("createDoughnutChart is not defined!");
+            return;
+        }
+
+        // Create the doughnut chart using the behaviourdetail values
+        createDoughnutChart(
+            document.getElementById('behaviourDoughnutChart').getContext('2d'),
+            'Behaviour Pattern',
+            Object.keys(behaviourCounts),
+            Object.values(behaviourCounts),
+            ['red', 'blue', 'green', 'yellow', 'purple']
+        );
+    })
+    .catch(error => console.error("Error fetching data:", error));
+};
+
 </script>
 
 </body>

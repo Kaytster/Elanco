@@ -14,11 +14,45 @@
 <canvas id="heartRateChart"></canvas>
 </div>
 <script>
+        function createLineChart(context, label, labels, data, borderColor) {
+        new Chart(context, {
+            type: 'line',
+            data: {
+                labels: labels,
+                datasets: [{
+                    label: label,
+                    data: data,
+                    borderColor: borderColor,
+                    backgroundColor: 'rgba(0, 0, 0, 0)', // Transparent background for line
+                    fill: false,
+                    tension: 0.1
+                }]
+            },
+            options: {
+                responsive: true,
+                scales: {
+                    x: {
+                        title: {
+                            display: true,
+                            text: 'Time (Hours)'
+                        }
+                    },
+                    y: {
+                        title: {
+                            display: true,
+                            text: label
+                        }
+                    }
+                }
+            }
+        });
+    }
+
     fetch('fetch_dog_data.php')
     .then(response => response.json())
     .then(data => {
-        const hours = data.map(d => d.hour);
-        const heartRates = data.map(d => d.heart_rate);
+        const hours = data.map(d => d.Hour);
+        const heartRates = data.map(d => d.Heart_Rate);
         createLineChart(document.getElementById('heartRateChart').getContext('2d'), 'Heart Rate (bpm)', hours, heartRates, 'red');
     });
 </script>

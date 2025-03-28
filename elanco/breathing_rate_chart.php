@@ -15,11 +15,45 @@
 <canvas id="breathingRateChart"></canvas>
 </div>
 <script>
+        function createLineChart(context, label, labels, data, borderColor) {
+        new Chart(context, {
+            type: 'line',
+            data: {
+                labels: labels,
+                datasets: [{
+                    label: label,
+                    data: data,
+                    borderColor: borderColor,
+                    backgroundColor: 'rgba(0, 0, 0, 0)', // Transparent background for line
+                    fill: false,
+                    tension: 0.1
+                }]
+            },
+            options: {
+                responsive: true,
+                scales: {
+                    x: {
+                        title: {
+                            display: true,
+                            text: 'Time (Hours)'
+                        }
+                    },
+                    y: {
+                        title: {
+                            display: true,
+                            text: label
+                        }
+                    }
+                }
+            }
+        });
+    }
+
     fetch('fetch_dog_data.php')
     .then(response => response.json())
     .then(data => {
-        const hours = data.map(d => d.hour);
-        const breathingRates = data.map(d => d.breathing_rate);
+        const hours = data.map(d => d.Hour);
+        const breathingRates = data.map(d => d.Breath_Rate);
         createLineChart(document.getElementById('breathingRateChart').getContext('2d'), 'Breathing Rate (breaths/min)', hours, breathingRates, 'purple');
     });
 </script>

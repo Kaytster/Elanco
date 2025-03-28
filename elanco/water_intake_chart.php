@@ -18,8 +18,8 @@
     fetch('fetch_dog_data.php')
     .then(response => response.json())
     .then(data => {
-        const hours = data.map(d => d.hour);
-        const waterIntakes = data.map(d => d.water_intake);
+        const hours = data.map(d => d.Hour);
+        const waterIntakes = data.map(d => d.Water_Intake);
         createLineChart(document.getElementById('waterIntakeChart').getContext('2d'), 'Water Intake (ml)', hours, waterIntakes, 'blue');
     });
 </script>
