@@ -25,15 +25,16 @@ header
         translate: translateY(0);
     }
 }
-img
+.dog-picture img
 {
-    animation: fadeINFromLeft 2s ease-in-out forwards;
+    animation: fadeINFromLeft 3s ease-in-out forwards;
 }
-header img 
+header .fade-in
 {
     width: 100px;
     margin-left: 30px;
     margin-top: 15px;
+    animation: fadeINFromLeft 2s ease-in-out forwards;
 }
 .welcome-message
 {
