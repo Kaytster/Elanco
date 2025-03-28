@@ -1,0 +1,226 @@
+body
+{
+  background: #E8DEF8
+}
+
+
+.row {
+  display: flex;
+  justify-content: center;
+  animation: appear linear;
+  animation-timeline: view();
+}
+@keyframes appear
+{
+  from
+  {
+    opacity: 1;
+    scale: 1;
+  }
+  to
+  {
+    opacity: 1;
+    scale: 0.2;
+  };
+}
+.row > .card {
+    width: 28%;
+    height: fit-content;
+    margin: 10px;
+    margin-bottom: 50px;
+    display: flex; /* Add flexbox to the card */
+    flex-direction: column; /* Stack card content vertically */
+    align-items: center; /* Center horizontally */
+    justify-content: center; /* Center vertically */
+}
+
+.activity-progress {
+    --size: 250px;
+    --half-size: calc(var(--size) / 2);
+    --stroke-width: 20px;
+    --radius: calc((var(--size) - var(--stroke-width)) / 2);
+    --circumference: calc(var(--radius) * pi * 2);
+    --dash: calc((var(--progress) * var(--circumference)) / 100);
+  }
+  
+  .activity-progress circle {
+    cx: var(--half-size);
+    cy: var(--half-size);
+    r: var(--radius);
+    stroke-width: var(--stroke-width);
+    fill: none;
+    stroke-linecap: round;
+  }
+  
+  .activity-progress circle.bgA {
+    stroke: #ddd;
+  }
+  
+  .activity-progress circle.fgA {
+    transform: rotate(-90deg);
+    transform-origin: var(--half-size) var(--half-size);
+    stroke-dasharray: var(--dash) calc(var(--circumference) - var(--dash));
+    transition: stroke-dasharray 0.3s linear 0s;
+    stroke: #5394fd;
+  }
+
+  .heart-progress {
+    --size: 250px;
+    --half-size: calc(var(--size) / 2);
+    --stroke-width: 20px;
+    --radius: calc((var(--size) - var(--stroke-width)) / 2);
+    --circumference: calc(var(--radius) * pi * 2);
+    --dash: calc((var(--progress) * var(--circumference)) / 100);
+  }
+  
+  .heart-progress circle {
+    cx: var(--half-size);
+    cy: var(--half-size);
+    r: var(--radius);
+    stroke-width: var(--stroke-width);
+    fill: none;
+    stroke-linecap: round;
+  }
+  
+  .heart-progress circle.bgH {
+    stroke: #ddd;
+  }
+  
+  .heart-progress circle.fgH {
+    transform: rotate(-90deg);
+    transform-origin: var(--half-size) var(--half-size);
+    stroke-dasharray: var(--dash) calc(var(--circumference) - var(--dash));
+    transition: stroke-dasharray 0.3s linear 0s;
+    stroke: #ecff1b;
+  }
+
+  .temp-progress {
+    --size: 250px;
+    --half-size: calc(var(--size) / 2);
+    --stroke-width: 20px;
+    --radius: calc((var(--size) - var(--stroke-width)) / 2);
+    --circumference: calc(var(--radius) * pi * 2);
+    --dash: calc((var(--progress) * var(--circumference)) / 100);
+  }
+  
+  .temp-progress circle {
+    cx: var(--half-size);
+    cy: var(--half-size);
+    r: var(--radius);
+    stroke-width: var(--stroke-width);
+    fill: none;
+    stroke-linecap: round;
+  }
+  
+  .temp-progress circle.bgT {
+    stroke: #ddd;
+  }
+  
+  .temp-progress circle.fgT {
+    transform: rotate(-90deg);
+    transform-origin: var(--half-size) var(--half-size);
+    stroke-dasharray: var(--dash) calc(var(--circumference) - var(--dash));
+    transition: stroke-dasharray 0.3s linear 0s;
+    stroke: #ecff1b;
+  }
+
+  .breath-progress {
+    --size: 250px;
+    --half-size: calc(var(--size) / 2);
+    --stroke-width: 20px;
+    --radius: calc((var(--size) - var(--stroke-width)) / 2);
+    --circumference: calc(var(--radius) * pi * 2);
+    --dash: calc((var(--progress) * var(--circumference)) / 100);
+  }
+  
+  .breath-progress circle {
+    cx: var(--half-size);
+    cy: var(--half-size);
+    r: var(--radius);
+    stroke-width: var(--stroke-width);
+    fill: none;
+    stroke-linecap: round;
+  }
+  
+  .breath-progress circle.bgB {
+    stroke: #ddd;
+  }
+  
+  .breath-progress circle.fgB {
+    transform: rotate(-90deg);
+    transform-origin: var(--half-size) var(--half-size);
+    stroke-dasharray: var(--dash) calc(var(--circumference) - var(--dash));
+    transition: stroke-dasharray 0.3s linear 0s;
+    stroke: #ffb71b;
+  }
+
+  text {
+    font-family: Arial, Helvetica, sans-serif;
+    font-size: 40px;
+  }
+
+.card 
+{
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+.card-body
+{
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  position: relative;
+  overflow: hidden;
+  border-radius: 15px;
+  transition: all 0.5s ease;
+  flex-direction: column;
+  width: 100%;
+  height: 100%;
+}
+.card-body::before
+{
+  content: '';
+  position: absolute;
+  top: -50%;
+  left: -50%;
+  
+  transform: rotate(-45deg);
+  transition: all 0.5s ease;
+  opacity: 0;
+  width: 28%;
+}
+.card-body:hover 
+{
+  transform: scale(1.3);
+}
+.card-body:hover::before 
+{
+  opacity: 1;
+  transform: rotate(0deg)translateY(100%);
+}
+
+.card-body img {
+  display: block;
+  margin: 10px auto; /* Add some margin for spacing */
+}
+
+  .centered {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    font-family: Arial, Helvetica, sans-serif;
+    font-size: 24px;
+  }
+
+  #myChart {
+    width: 600px;  /* Make the chart fill the card width */
+    height: 600px; /* Set a fixed height */
+    margin: auto;
+}
+
+a {
+  text-decoration: none;
+  color: black;
+}

@@ -11,11 +11,11 @@
 <body>
     
   <header>
-     <img src="Elanco.png" alt="Elanco Logo">
+     <img src="Elanco.png" alt="Elanco Logo" class="fade-in">
   </header>    
 
   <div class="welcome-message">
-    <h3>Welcome, Admin</h3>
+    <h3>Welcome, Pet Owner!</h3>
   </div>
     
   <div class="login">
@@ -28,10 +28,6 @@
         
         <button type="submit" class="submit-button">Login</button>
     </form>
-  </div>
-
-  <div class="user-login">
-    <a href="index.php"><button type="button" class="admin-button">Pet Owner Login</button></a>
   </div>
 
   <div class="dog-picture">
