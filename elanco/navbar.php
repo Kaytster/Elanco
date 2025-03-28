@@ -5,18 +5,10 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Pet Data</title>
     <style>
-        /* body {
-            font-family: Arial, sans-serif;
-            margin: 0;
-            padding: 0;
-            background-color: #f9f9f9;
-            display: flex;
-            justify-content: flex-start;
-        } */
+        
         nav {
             background-color: #0067B1;
             color: #fff;
-            /* padding: 20px; */
             position: fixed;
             height: 100%;
             width: 150px;
@@ -39,11 +31,12 @@
         nav .logout 
         {
             margin-top: 31em;
+            margin-left: -20px;
         }
-        nav a img 
+        nav  img 
         {
-            width: 15px;
-            margin-right: 20px;
+            width: 105px;
+            margin-left: 20px;
         }
         nav .logout img
         {
@@ -65,7 +58,7 @@
 </head>
 <body>
     <nav>
-        <a class="logo" href="dashboard.php"><img src="Elanco.png" alt="Elanco"></a>
+        <img src="Elanco.png" alt="Elanco">
         <a href="javascript:history.back()">Previous Page</a>
         <a href="landingpage.php">My Pets</a>
         <a href="AdminLogin.php" class="logout"><img src="logout.png" alt="">LogOut</a>

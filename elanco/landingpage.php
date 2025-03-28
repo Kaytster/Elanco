@@ -94,9 +94,9 @@
         <div class="row">
             <?php
             $pets = [
-                ["name" => "Snoopy", "age" => 13, "type" => "Siberian Husky", "image" => "siberian husky dog.jpg", "page" => "snoopy.php"],
-                ["name" => "Charlie", "age" => 8, "type" => "Golden Retriever", "image" => "Golden Retriever.jpg", "page" => "charlie.php"],
-                ["name" => "Teddy", "age" => 3, "type" => "Beagle", "image" => "Beagle Dog.jpg", "page" => "teddy.php"]
+                ["name" => "Snoopy", "age" => 13, "type" => "Siberian Husky", "image" => "siberian husky dog.jpg", "page" => "dashboard.php"],
+                ["name" => "Charlie", "age" => 8, "type" => "Golden Retriever", "image" => "Golden Retriever.jpg", "page" => "dashboard.php"],
+                ["name" => "Teddy", "age" => 3, "type" => "Beagle", "image" => "Beagle Dog.jpg", "page" => "dashboard.php"]
             ];
 
             foreach ($pets as $pet) {
