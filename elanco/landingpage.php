@@ -13,6 +13,14 @@
             background-color: #2C6AC2;
             height: 75px;
         }
+        @keyframes shake-animation 
+        {
+            0% { transform: rotate(0deg); }
+            25% { transform: rotate(2deg); }
+            50% { transform: rotate(-2deg); }
+            75% { transform: rotate(2deg); }
+            100% { transform: rotate(0deg); }
+        }
         .header p 
         {
             color: white;
@@ -20,6 +28,8 @@
             float: right;
             font-size: 24px;
             font-weight: bold;
+            animation: shake-animation 4.72s ease infinite;
+            transform-origin: 50% 50%;
         }
         .header img 
         {
@@ -27,6 +37,7 @@
             text-align: end;
             margin-top: 10px;
             margin-left: 10px;
+            
         }
         .card img {
             border-top-left-radius: 10px;
@@ -66,6 +77,7 @@
         {
             margin-top: 100px;
         }
+        
     </style>
 
 </head>
