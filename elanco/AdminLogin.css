@@ -39,7 +39,18 @@ header img
 {
     margin-left: 50px;
     margin-top: 100px;
-    animation: fadeIn 1s ease-in-out forwards;
+    animation:  wave 3s ease-in-out infinite;
+}
+@keyframes wave 
+{
+    0%, 100%
+    {
+        transform: translateY(0);
+    }
+    50%
+    {
+        transform: translateY(-10px);
+    }
 }
 @keyframes fadeIn
 {
