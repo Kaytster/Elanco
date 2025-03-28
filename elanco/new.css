@@ -3,11 +3,26 @@ body
   background: #E8DEF8
 }
 
+
 .row {
   display: flex;
   justify-content: center;
+  animation: appear linear;
+  animation-timeline: view();
 }
-
+@keyframes appear
+{
+  from
+  {
+    opacity: 1;
+    scale: 1;
+  }
+  to
+  {
+    opacity: 1;
+    scale: 0.8;
+  };
+}
 .row > .card {
     width: 28%;
     height: fit-content;
