@@ -1,10 +1,15 @@
 <?php
-
+session_start();
 
 try {
-    $db = new SQLite3('Elanco-Final.db');
+    $db = new SQLite3('Elanco-Database.db');
     // echo "Connected to the SQLite3 database!";
-
+	if (!$db) {
+        echo "Error: Database connection failed! Check the file path.";
+        exit; // Stop the script if the connection failed
+    } else {
+        echo "Database connection successful!<br>";
+    }
     
 
 	$dateID = isset($_GET['date']) ? $_GET['date'] : date('Y-m-d');
@@ -15,30 +20,38 @@ try {
     $formattedDate = $row[0];
 
     // echo "Selected Date: " . $formattedDate . "<br>";
-	
-    
-    $dogID = $db->query('SELECT Dog_ID FROM Activity WHERE Dog_ID="CANINE001" LIMIT 1 ');
-	$rowDOG = $dogID->fetchArray(SQLITE3_ASSOC); // Get the data
 
-	$weightID = $db->query("SELECT round(avg(Weight), 1) AS 'Weight_ID' FROM Activity WHERE Dog_ID='CANINE001' AND D_Date='$formattedDate'");
+	if (isset($_SESSION['selected_pet'])) {
+		$dogNAME = $_SESSION['selected_pet'];
+	} else {
+		$dogNAME = "No pet selected";
+	}
+
+	if (isset($_SESSION['selected_ID'])) {
+		$dogID = $_SESSION['selected_ID'];
+	} else {
+		$dogNAME = "No pet selected";
+	}
+
+	$weightID = $db->query("SELECT round(avg(Weight), 1) AS 'Weight_ID' FROM Activity WHERE Dog_ID='$dogID' AND D_Date='$formattedDate'");
 	$rowWEIGHT = $weightID->fetchArray(SQLITE3_ASSOC);
 
-	$normalID = $db->query("SELECT count(Behaviour_ID) AS 'Normal' FROM Activity WHERE Dog_ID='CANINE001' AND D_Date='$formattedDate' AND Behaviour_ID='1'");
+	$normalID = $db->query("SELECT count(Behaviour_ID) AS 'Normal' FROM Activity WHERE Dog_ID='$dogID' AND D_Date='$formattedDate' AND Behaviour_ID='1'");
 	$rowNORMAL = $normalID->fetchArray(SQLITE3_ASSOC);
 
-	$walkingID = $db->query("SELECT count(Behaviour_ID) AS 'Walking' FROM Activity WHERE Dog_ID='CANINE001' AND D_Date='$formattedDate' AND Behaviour_ID='2'");
+	$walkingID = $db->query("SELECT count(Behaviour_ID) AS 'Walking' FROM Activity WHERE Dog_ID='$dogID' AND D_Date='$formattedDate' AND Behaviour_ID='2'");
 	$rowWALKING = $walkingID->fetchArray(SQLITE3_ASSOC);
 
-	$eatingID = $db->query("SELECT count(Behaviour_ID) AS 'Eating' FROM Activity WHERE Dog_ID='CANINE001' AND D_Date='$formattedDate' AND Behaviour_ID='3'");
+	$eatingID = $db->query("SELECT count(Behaviour_ID) AS 'Eating' FROM Activity WHERE Dog_ID='$dogID' AND D_Date='$formattedDate' AND Behaviour_ID='3'");
 	$rowEATING = $eatingID->fetchArray(SQLITE3_ASSOC);
 
-	$sleepingID = $db->query("SELECT count(Behaviour_ID) AS 'Sleeping' FROM Activity WHERE Dog_ID='CANINE001' AND D_Date='$formattedDate' AND Behaviour_ID='4'");
+	$sleepingID = $db->query("SELECT count(Behaviour_ID) AS 'Sleeping' FROM Activity WHERE Dog_ID='$dogID' AND D_Date='$formattedDate' AND Behaviour_ID='4'");
 	$rowSLEEPING = $sleepingID->fetchArray(SQLITE3_ASSOC);
 
-	$playingID = $db->query("SELECT count(Behaviour_ID) AS 'Playing' FROM Activity WHERE Dog_ID='CANINE001' AND D_Date='$formattedDate' AND Behaviour_ID='5'");
+	$playingID = $db->query("SELECT count(Behaviour_ID) AS 'Playing' FROM Activity WHERE Dog_ID='$dogID' AND D_Date='$formattedDate' AND Behaviour_ID='5'");
 	$rowPLAYING = $playingID->fetchArray(SQLITE3_ASSOC);
 
-	$barkID = $db->query("SELECT round(avg(Frequency_ID), 1) AS 'Frequency_ID' FROM Activity WHERE Dog_ID='CANINE001' AND D_Date='$formattedDate'");
+	$barkID = $db->query("SELECT round(avg(Frequency_ID), 1) AS 'Frequency_ID' FROM Activity WHERE Dog_ID='$dogID' AND D_Date='$formattedDate'");
 	$rowBARK = $barkID->fetchArray(SQLITE3_ASSOC);
 
 	$barkingFREQ = "";
@@ -53,26 +66,28 @@ try {
 		$barkingFREQ="High";
 	}
 
-	$stepsID = $db->query("SELECT sum(Activity_Level) AS 'Steps_ID' FROM Activity WHERE Dog_ID='CANINE001' AND D_Date='$formattedDate'");
+	$stepsID = $db->query("SELECT sum(Activity_Level) AS 'Steps_ID' FROM Activity WHERE Dog_ID='$dogID' AND D_Date='$formattedDate'");
 	$rowSTEPS = $stepsID->fetchArray(SQLITE3_ASSOC);
 
-	$heartID = $db->query("SELECT round(avg(Heart_Rate), 1) AS 'Heart_ID' FROM Activity WHERE Dog_ID='CANINE001' AND D_Date='$formattedDate'");
+	$heartID = $db->query("SELECT round(avg(Heart_Rate), 1) AS 'Heart_ID' FROM Activity WHERE Dog_ID='$dogID' AND D_Date='$formattedDate'");
 	$rowHEART = $heartID->fetchArray(SQLITE3_ASSOC);
 
-	$tempID = $db->query("SELECT round(avg(Temperature) , 1) AS 'Temp_ID' FROM Activity WHERE Dog_ID='CANINE001' AND D_Date='$formattedDate'");
+	$tempID = $db->query("SELECT round(avg(Temperature) , 1) AS 'Temp_ID' FROM Activity WHERE Dog_ID='$dogID' AND D_Date='$formattedDate'");
 	$rowTEMP = $tempID->fetchArray(SQLITE3_ASSOC);
 
-	$breathID = $db->query("SELECT round(avg(Breath_Rate) , 1) AS 'Breath_ID' FROM Activity WHERE Dog_ID='CANINE001' AND D_Date='$formattedDate'");
+	$breathID = $db->query("SELECT round(avg(Breath_Rate) , 1) AS 'Breath_ID' FROM Activity WHERE Dog_ID='$dogID' AND D_Date='$formattedDate'");
 	$rowBREATH = $breathID->fetchArray(SQLITE3_ASSOC);
 
-	$foodID = $db->query("SELECT sum(Food_Intake) AS 'Food_ID' FROM Activity WHERE Dog_ID='CANINE001' AND D_Date='$formattedDate'");
+	$foodID = $db->query("SELECT sum(Food_Intake) AS 'Food_ID' FROM Activity WHERE Dog_ID='$dogID' AND D_Date='$formattedDate'");
 	$rowFOOD = $foodID->fetchArray(SQLITE3_ASSOC);
 
-	$calID = $db->query("SELECT sum(Calorie_Burnt) AS 'Cal_ID' FROM Activity WHERE Dog_ID='CANINE001' AND D_Date='$formattedDate'");
+	$calID = $db->query("SELECT sum(Calorie_Burnt) AS 'Cal_ID' FROM Activity WHERE Dog_ID='$dogID' AND D_Date='$formattedDate'");
 	$rowCAL = $calID->fetchArray(SQLITE3_ASSOC);
 
-	$waterID = $db->query("SELECT sum(Water_Intake) AS 'Water_ID' FROM Activity WHERE Dog_ID='CANINE001' AND D_Date='$formattedDate'");
+	$waterID = $db->query("SELECT sum(Water_Intake) AS 'Water_ID' FROM Activity WHERE Dog_ID='$dogID' AND D_Date='$formattedDate'");
 	$rowWATER = $waterID->fetchArray(SQLITE3_ASSOC);
+
+	$_SESSION['TotalSteps'] = $rowSTEPS;
 	
 } catch (Exception $e) {
     echo "Database connection failed: " . $e->getMessage();
@@ -106,12 +121,12 @@ src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/2.9.4/Chart.js">
 				</div>
 			<div class="card" style="background-color: #ecf6fd; width: 28%; margin-left:60px; text-align:center; border-color:#0067B1; border-width:1px; box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);">
 				<div class="card-body">
-					<h3 class="card-title">Snoopy</h3>
+					<h3 class="card-title"><?php echo $dogNAME;?></h3>
 				</div>
 			</div>
 			<div class="card" style="background-color: #ecf6fd; width: 28%; margin-left:60px; text-align:center; border-color:#0067B1; border-width:1px; box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);">
 				<div class="card-body">
-					<h3 class="card-title"><?php echo $rowDOG['Dog_ID']?></h3>
+					<h3 class="card-title"><?php echo $dogID?></h3>
 				</div>
 			</div>
 		</div>
