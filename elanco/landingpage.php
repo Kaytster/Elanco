@@ -1,3 +1,6 @@
+<?php
+session_start();
+?>
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -51,7 +54,7 @@
             box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
         }
     
-        a
+        button
         {
             text-decoration: none;
             color: white;
@@ -86,7 +89,7 @@
         
         </div>
     <div class="header">
-        <img src="Elanco.png" alt="Elanco">
+        <a href="dashboard.php"><img src="Elanco.png" alt="Elanco"></a>
         <p>Hello, Pet Owner</p>
     </div>
 
@@ -99,6 +102,24 @@
                 ["name" => "Teddy", "age" => 3, "type" => "Beagle", "image" => "Beagle Dog.jpg", "page" => "dashboard.php"]
             ];
 
+            if (isset($_POST['petName'])) {
+                $petName = $_POST['petName'];
+            
+                if ($petName == "Snoopy") {
+                    $_SESSION['selected_pet'] = "Snoopy";
+                    $_SESSION['selected_ID'] = "CANINE001";
+                } elseif ($petName == "Charlie") {
+                    $_SESSION['selected_pet'] = "Charlie";
+                    $_SESSION['selected_ID'] = "CANINE002";
+                } elseif ($petName == "Teddy") {
+                    $_SESSION['selected_pet'] = "Teddy";
+                    $_SESSION['selected_ID'] = "CANINE003";
+                }
+                $page = $_POST['page'];
+                header("Location: " . $page);
+                exit;
+            }
+
             foreach ($pets as $pet) {
                 echo "
                 <div class='col-md-4'>
@@ -108,7 +129,11 @@
                             <h5 class='card-title'>{$pet['name']}</h5>
                             <p class='card-text'><strong>Age:</strong> {$pet['age']}</p>
                             <p class='card-text'><strong>Type:</strong> {$pet['type']}</p>
-                            <a href='{$pet['page']}' class='zoom-hover-text'>Read More</a>
+                            <form method='post' action=''>
+                                <input type='hidden' name='petName' value='{$pet['name']}'>
+                                <input type='hidden' name='page' value='{$pet['page']}'>
+                                <button type='submit' class='zoom-hover-text'>Read More</button>
+                            </form>
                         </div>
                     </div>
                 </div>";
