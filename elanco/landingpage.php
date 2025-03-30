@@ -86,7 +86,7 @@
         
         </div>
     <div class="header">
-        <a href="dashboard.php"><img src="Elanco.png" alt="Elanco"></a>
+        <img src="Elanco.png" alt="Elanco">
         <p>Hello, Pet Owner</p>
     </div>
 
