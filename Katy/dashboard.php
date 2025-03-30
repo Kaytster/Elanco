@@ -1,8 +1,8 @@
 <?php
-$dbFilePath = 'C:\Users\ktsha\Desktop\UNI WORK\Year1\Semester 2\Group\Elanco-Final.db'; 
+
 
 try {
-    $db = new SQLite3($dbFilePath);
+    $db = new SQLite3('Elanco-Final.db');
     // echo "Connected to the SQLite3 database!";
 
     
