@@ -1,6 +1,3 @@
-<?php
-session_start();
-?>
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -8,139 +5,282 @@ session_start();
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Pet Landing Page</title>
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <link rel="stylesheet" href="new.css">
     <style>
-        body {
-            background-color: #E6D9F4;
+        /* Main container for the page */
+        .main-container {
+            padding: 20px 0;
+            background-color: var(--background);
+            min-height: 100vh;
         }
-        .header {
-            background-color: #2C6AC2;
-            height: 75px;
+        
+        /* Page title styles */
+        .page-header {
+            text-align: left;
+            margin-bottom: 40px;
+            position: relative;
+            padding-bottom: 20px;
         }
-        @keyframes shake-animation 
-        {
-            0% { transform: rotate(0deg); }
-            25% { transform: rotate(2deg); }
-            50% { transform: rotate(-2deg); }
-            75% { transform: rotate(2deg); }
-            100% { transform: rotate(0deg); }
-        }
-        .header p 
-        {
-            color: white;
-            padding: 15px;
-            float: right;
-            font-size: 24px;
-            font-weight: bold;
-            animation: shake-animation 4.72s ease infinite;
-            transform-origin: 50% 50%;
-        }
-        .header img 
-        {
-            width: 100px;
-            text-align: end;
-            margin-top: 10px;
-            margin-left: 10px;
-            
-        }
-        .card img {
-            border-top-left-radius: 10px;
-            border-top-right-radius: 10px;
-            height: 180px;
-            object-fit: cover;
-        }
-        .card {
+        
+        .page-header::after {
+            content: '';
+            position: absolute;
+            bottom: 0;
+            left: 0;
+            transform: none;
+            width: 80px;
+            height: 4px;
+            background: var(--gradient);
             border-radius: 10px;
+        }
+        
+        .page-title {
+            font-size: 2.5rem;
+            color: var(--primary);
+            margin-bottom: 15px;
+            font-weight: 700;
+        }
+        
+        .page-subtitle {
+            font-size: 1.1rem;
+            color: var(--text-secondary);
+            max-width: 800px;
+            margin: 0;
+            line-height: 1.6;
+        }
+        
+        /* Pet card container */
+        .pet-card-container {
+            display: flex;
+            flex-wrap: nowrap;
+            justify-content: flex-start;
+            gap: 30px;
+            margin-top: 40px;
+            margin-left: 0;
+            margin-right: auto;
+            width: 100%;
+            max-width: 100%;
+            overflow-x: auto;
+            padding-bottom: 20px;
+        }
+        
+        /* Pet card styling */
+        .pet-card {
+            background-color: var(--card-bg);
+            border-radius: var(--radius);
+            box-shadow: var(--shadow);
             overflow: hidden;
-            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+            width: 350px;
+            flex: 0 0 auto;
+            transition: transform 0.3s ease, box-shadow 0.3s ease;
+            display: flex;
+            flex-direction: column;
         }
-    
-        button
-        {
-            text-decoration: none;
+        
+        .pet-card:hover {
+            transform: translateY(-10px);
+            box-shadow: 0 15px 30px rgba(0, 103, 177, 0.2);
+        }
+        
+        .pet-image {
+            height: 200px;
+            overflow: hidden;
+            position: relative;
+        }
+        
+        .pet-image img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            transition: transform 0.5s ease;
+        }
+        
+        .pet-card:hover .pet-image img {
+            transform: scale(1.1);
+        }
+        
+        .pet-badge {
+            position: absolute;
+            top: 15px;
+            right: 15px;
+            background: var(--gradient);
             color: white;
-            font-size: 20px;
-
-        }
-        .zoom-hover-text
-        {
-            background-color: #2C6AC2;
-            border-radius: 5px;
-            padding: 5px;
-            text-align: center; 
-            display: inline-block;
-            transition: transform 0.3s ease, opacity 0.3s ease;
-            cursor: pointer;
-        }
-        .zoom-hover-text:hover 
-        {
-            transform: scale(1.2) translateY(-5px);
-            opacity: 0.8;
-        }
-        .col-md-4
-        {
-            margin-top: 100px;
+            padding: 5px 12px;
+            border-radius: 20px;
+            font-size: 0.85rem;
+            font-weight: 600;
+            box-shadow: 0 3px 8px rgba(0, 103, 177, 0.25);
         }
         
+        .pet-info {
+            padding: 25px;
+        }
+        
+        .pet-name {
+            font-size: 1.5rem;
+            font-weight: 700;
+            color: var(--primary);
+            margin-bottom: 10px;
+        }
+        
+        .pet-type {
+            color: var(--text-secondary);
+            font-size: 1rem;
+            margin-bottom: 15px;
+        }
+        
+        .pet-stats {
+            margin-top: 20px;
+            display: flex;
+            justify-content: space-between;
+            padding-top: 15px;
+            border-top: 1px solid rgba(0, 0, 0, 0.05);
+        }
+        
+        .pet-stat {
+            text-align: center;
+        }
+        
+        .stat-label {
+            font-size: 0.85rem;
+            color: var(--text-secondary);
+            margin-bottom: 5px;
+        }
+        
+        .stat-value {
+            font-size: 1.1rem;
+            font-weight: 600;
+            color: var(--primary);
+        }
+        
+        /* Pet action buttons */
+        .pet-actions {
+            display: flex;
+            gap: 10px;
+            margin-top: 25px;
+        }
+        
+        /* Media queries for responsiveness */
+        @media (max-width: 1200px) {
+            .pet-card {
+                width: 320px;
+                flex-shrink: 0;
+            }
+            
+            .pet-card-container {
+                justify-content: flex-start;
+            }
+        }
+        
+        @media (max-width: 992px) {
+            .pet-card-container {
+                gap: 20px;
+                justify-content: flex-start;
+                overflow-x: auto;
+                padding-bottom: 15px;
+            }
+            
+            .pet-card {
+                width: 300px;
+                flex-shrink: 0;
+            }
+        }
+        
+        @media (max-width: 768px) {
+            .pet-card-container {
+                flex-wrap: nowrap;
+                justify-content: flex-start;
+                overflow-x: auto;
+                padding-bottom: 15px;
+            }
+            
+            .pet-card {
+                width: 280px;
+                flex-shrink: 0;
+                max-width: none;
+            }
+            
+            .page-title {
+                font-size: 2.2rem;
+            }
+        }
+        
+        @media (max-width: 576px) {
+            .page-title {
+                font-size: 1.8rem;
+            }
+            
+            .page-subtitle {
+                font-size: 1rem;
+            }
+            
+            .pet-info {
+                padding: 20px;
+            }
+        }
     </style>
-
 </head>
+
 <body>
+    <?php include 'navbar.php';?>
     
-        
-        </div>
-    <div class="header">
-        <a href="dashboard.php"><img src="Elanco.png" alt="Elanco"></a>
-        <p>Hello, Pet Owner</p>
+    <div class="page-header">
+        <h1 class="page-title">Pet Health Tracker</h1>
     </div>
 
-    <div class="container mt-4">
-        <div class="row">
-            <?php
-            $pets = [
-                ["name" => "Snoopy", "age" => 13, "type" => "Siberian Husky", "image" => "siberian husky dog.jpg", "page" => "dashboard.php"],
-                ["name" => "Charlie", "age" => 8, "type" => "Golden Retriever", "image" => "Golden Retriever.jpg", "page" => "dashboard.php"],
-                ["name" => "Teddy", "age" => 3, "type" => "Beagle", "image" => "Beagle Dog.jpg", "page" => "dashboard.php"]
-            ];
+    <div class="pet-card-container">
+        <?php
+        $pets = [
+            ["name" => "Basil", "age" => 13, "type" => "Maltese", "image" => "Maltese.jpg", "page" => "dashboard.php", "weight" => "7.8 kg", "health" => "Good"],
+            ["name" => "Snoppy", "age" => 3, "type" => "Beagle", "image" => "Beagle Dog.jpg", "page" => "dashboard.php", "weight" => "11 kg", "health" => "Excellent"],
+            ["name" => "Cooper", "age" => 8, "type" => "Bulldog", "image" => "Bulldog.jpg", "page" => "dashboard.php", "weight" => "25 kg", "health" => "Good"]
+        ];
 
-            if (isset($_POST['petName'])) {
-                $petName = $_POST['petName'];
-            
-                if ($petName == "Snoopy") {
-                    $_SESSION['selected_pet'] = "Snoopy";
-                    $_SESSION['selected_ID'] = "CANINE001";
-                } elseif ($petName == "Charlie") {
-                    $_SESSION['selected_pet'] = "Charlie";
-                    $_SESSION['selected_ID'] = "CANINE002";
-                } elseif ($petName == "Teddy") {
-                    $_SESSION['selected_pet'] = "Teddy";
-                    $_SESSION['selected_ID'] = "CANINE003";
-                }
-                $page = $_POST['page'];
-                header("Location: " . $page);
-                exit;
-            }
-
-            foreach ($pets as $pet) {
-                echo "
-                <div class='col-md-4'>
-                    <div class='card text-center p-3'>
-                        <img src='{$pet['image']}' class='card-img-top' alt='{$pet['name']}'>
-                        <div class='card-body'>
-                            <h5 class='card-title'>{$pet['name']}</h5>
-                            <p class='card-text'><strong>Age:</strong> {$pet['age']}</p>
-                            <p class='card-text'><strong>Type:</strong> {$pet['type']}</p>
-                            <form method='post' action=''>
-                                <input type='hidden' name='petName' value='{$pet['name']}'>
-                                <input type='hidden' name='page' value='{$pet['page']}'>
-                                <button type='submit' class='zoom-hover-text'>Read More</button>
-                            </form>
+        foreach ($pets as $pet) {
+            $healthClass = strtolower($pet['health']) === 'excellent' ? 'pet-health-excellent' : 'pet-health-good';
+        ?>
+            <div class="pet-card">
+                <div class="pet-image">
+                    <img src="<?php echo $pet['image']; ?>" alt="<?php echo $pet['name']; ?>">
+                    <div class="pet-badge"><?php echo $pet['health']; ?></div>
+                </div>
+                <div class="pet-info">
+                    <h2 class="pet-name"><?php echo $pet['name']; ?></h2>
+                    <p class="pet-type"><?php echo $pet['type']; ?></p>
+                    
+                    <div class="pet-stats">
+                        <div class="pet-stat">
+                            <div class="stat-label">Age</div>
+                            <div class="stat-value"><?php echo $pet['age']; ?> yrs</div>
+                        </div>
+                        
+                        <div class="pet-stat">
+                            <div class="stat-label">Weight</div>
+                            <div class="stat-value"><?php echo $pet['weight']; ?></div>
+                        </div>
+                        
+                        <div class="pet-stat">
+                            <div class="stat-label">Health</div>
+                            <div class="stat-value"><?php echo $pet['health']; ?></div>
                         </div>
                     </div>
-                </div>";
-            }
-            ?>
-        </div>
+                    
+                    <div class="pet-actions">
+                        <a href="dashboard.php?pet_id=<?php echo urlencode($pet['name']); ?>" class="ui-button">
+                            <span><i class="fas fa-tachometer-alt"></i> View Dashboard</span>
+                        </a>
+                        
+                        <a href="trends.php?dog_id=CANINE<?php echo str_pad(array_search($pet, $pets) + 1, 3, '0', STR_PAD_LEFT); ?>" class="ui-button secondary">
+                            <span><i class="fas fa-chart-line"></i> View Trends</span>
+                        </a>
+                    </div>
+                </div>
+            </div>
+        <?php
+        }
+        ?>
     </div>
-
+    </div> <!-- Close container div from navbar.php -->
 </body>
 </html>

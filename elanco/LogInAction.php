@@ -34,7 +34,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
         {
             $_SESSION['email'] = $email;
             $_SESSION['useremail'] = $useremail;
-            header("Location:landingpage.php");
+            header("Location: landingpage.php");
             exit();
         }
         else

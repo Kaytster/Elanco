@@ -1,147 +1,250 @@
-body
-{
-    background: #E8DEF8;
-    box-sizing: border-box;
+:root {
+  --primary: #0067B1;
+  --primary-light: #82ADCC;
+  --primary-dark: #004B8D;
+  --secondary: #E8DEF8;
+  --accent: #FFD166;
+  --text-dark: #333333;
+  --text-light: #FFFFFF;
+  --background: #F5FAFF;
+  --card-bg: #FFFFFF;
+  --success: #06D6A0;
+  --warning: #FFD166;
+  --danger: #EF476F;
+  --shadow: 0 4px 12px rgba(0, 103, 177, 0.15);
+  --radius: 12px;
+  --transition: all 0.3s ease;
+  --gradient: linear-gradient(135deg, var(--primary), var(--primary-dark));
 }
-header
-{
-    background: #0067B1;
-    margin: 0;
-    padding: 0;
-    overflow: hidden;
-    width: 100%;
-    height: 75px;
+
+body {
+  background-color: var(--background);
+  font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+  margin: 0;
+  padding: 0;
+  color: var(--text-dark);
+  height: 100vh;
+  overflow-x: hidden;
 }
-@keyframes fadeINFromLeft
-{
-    from
-    {
-        opacity: 0;
-        translate: translateY(-50px);
-    }
-    to
-    {
-        opacity: 1;
-        translate: translateY(0);
-    }
+
+.container-fluid {
+  padding: 0;
+  height: 100vh;
+  display: flex;
+  flex-direction: column;
 }
-.dog-picture img
-{
-    animation: fadeINFromLeft 3s ease-in-out forwards;
+
+.row {
+  display: flex;
+  flex-wrap: wrap;
+  height: 100%;
+  margin: 0;
 }
-header .fade-in
-{
-    width: 100px;
-    margin-left: 30px;
-    margin-top: 15px;
-    animation: fadeINFromLeft 2s ease-in-out forwards;
+
+.col-lg-6 {
+  padding: 0;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  width: 50%;
+  height: 100%;
 }
-.welcome-message
-{
-    margin-left: 50px;
-    margin-top: 100px;
-    animation:  wave 3s ease-in-out infinite;
+
+.welcome-message {
+  padding: 40px;
+  text-align: left;
+  max-width: 500px;
+  margin: 0 auto;
 }
-@keyframes wave 
-{
-    0%, 100%
-    {
-        transform: translateY(0);
-    }
-    50%
-    {
-        transform: translateY(-10px);
-    }
+
+.welcome-message h3 {
+  color: var(--primary);
+  font-size: 2.2rem;
+  font-weight: 700;
+  margin-bottom: 15px;
 }
-@keyframes fadeIn
-{
-  from
-  {
-    opacity: 0;
-    translate: translateY(20px);
-  }
-  to
-  {
-    opacity: 1;
-    translate: translateY(0);
-  }
+
+.welcome-message p {
+  color: var(--text-dark);
+  font-size: 1.1rem;
+  line-height: 1.6;
+  margin-bottom: 25px;
 }
-.login
-{
-    margin-left: 50px;
-    margin-top: 50px;
-    font-size: 30px;
-    width: 350px;
+
+.login {
+  padding: 0 40px;
+  max-width: 500px;
+  margin: 0 auto;
+  width: 100%;
 }
-.login label 
-{
-    display: block;
-    margin-top: 10px;
+
+.login-card {
+  background-color: var(--card-bg);
+  border-radius: var(--radius);
+  box-shadow: var(--shadow);
+  padding: 40px;
+  transition: var(--transition);
+  position: relative;
+  overflow: hidden;
+  width: 100%;
 }
-input[type="text"], input[type="password"] 
-{
-    width: 350px;
-    height: 40px;
-    border-radius: 5px;
-    margin-top: 10px;
+
+.login-card:hover {
+  box-shadow: 0 8px 24px rgba(0, 103, 177, 0.2);
+  transform: translateY(-5px);
 }
-.admin-button 
-{
-    background: #82ADCC;
-    border-radius: 5px;
-    width: 166px;
-    height: 41px;
-    font-size: 20px;
-    margin-top: 20px;
-    margin-left: 125px;
-}
-.dog-picture img
-{
-  float: right;
-  width: 70%;
-  margin-right: 100px;
-  margin-top: -600px;
-}
-.submit-button
-{   
-    background: linear-gradient(45deg, #ff6b6b, #ff9e7d);
-    border: none;
-    color: white;
-    padding: 12px 24px;
-    font-size: 16px;
-    border-radius: 50px;
-    font-weight: bold;
-    letter-spacing: 1px;
-    box-shadow: 0 8px 15px rgba(255, 107, 107, 0.3);
-    transition: all 0.3s ease;
-    position: relative;
-    overflow: hidden;
-    cursor: pointer;
-    margin-left: 110px;
-    margin-top: 20px;
-}
-.submit-button:before
-{
-  content: "";
+
+.login-card::before {
+  content: '';
   position: absolute;
   top: 0;
-  left: -100%;
+  left: 0;
+  width: 100%;
+  height: 5px;
+  background: var(--gradient);
+}
+
+.form-group {
+  margin-bottom: 25px;
+  position: relative;
+}
+
+.form-group label {
+  display: block;
+  margin-bottom: 8px;
+  font-weight: 600;
+  color: var(--primary);
+}
+
+.input-field {
+  width: 100%;
+  padding: 14px 16px 14px 45px;
+  border: 1px solid #ddd;
+  border-radius: 8px;
+  font-size: 1rem;
+  transition: var(--transition);
+  background-color: #f8fafc;
+}
+
+.input-field:focus {
+  outline: none;
+  border-color: var(--primary);
+  box-shadow: 0 0 0 3px rgba(0, 103, 177, 0.1);
+  background-color: white;
+}
+
+.input-icon {
+  position: absolute;
+  top: 42px;
+  left: 16px;
+  color: var(--primary);
+  font-size: 1.1rem;
+}
+
+.login-button {
+  width: 100%;
+  padding: 14px;
+  border: none;
+  border-radius: 8px;
+  background: var(--gradient);
+  color: var(--text-light);
+  font-size: 1rem;
+  font-weight: 600;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 10px;
+  transition: var(--transition);
+  box-shadow: 0 4px 10px rgba(0, 103, 177, 0.25);
+}
+
+.login-button:hover {
+  transform: translateY(-3px);
+  box-shadow: 0 6px 15px rgba(0, 103, 177, 0.3);
+}
+
+.login-button:active {
+  transform: translateY(-1px);
+  box-shadow: 0 3px 8px rgba(0, 103, 177, 0.3);
+}
+
+.dog-picture {
+  height: 100%;
+  overflow: hidden;
+  position: relative;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.dog-picture img {
+  object-fit: cover;
   width: 100%;
   height: 100%;
-  background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.4), transparent);
-  transition: all 0.4s ease;
+  display: block;
 }
-.submit-button:hover
-{
-   transform: translateY(-5px);
-   box-shadow: 0 15px 20px rgba(255, 107, 107, 0.4);
+
+@media (max-width: 992px) {
+  .col-lg-6 {
+    width: 100%;
+    height: auto;
+  }
+  
+  .row {
+    flex-direction: column-reverse;
+  }
+  
+  .dog-picture {
+    height: 300px;
+  }
+  
+  .dog-picture img {
+    object-position: center top;
+  }
+  
+  .welcome-message, .login {
+    padding: 30px 20px;
+  }
+  
+  .login-card {
+    padding: 30px;
+  }
 }
-.submit-button:hover:before
-{
-  left: 100%;
+
+@media (max-width: 576px) {
+  .welcome-message h3 {
+    font-size: 1.8rem;
+  }
+  
+  .welcome-message p {
+    font-size: 1rem;
+  }
+  
+  .login-card {
+    padding: 25px 20px;
+  }
+  
+  .dog-picture {
+    height: 250px;
+  }
 }
-.submit-button:active
-{
-    transform: translateY(-2px);
-    box-shadow: 0 5px 10px rgba(255, 107, 107, 0.4);
+
+@media (max-height: 700px) {
+  .welcome-message {
+    padding: 20px 40px;
+  }
+  
+  .welcome-message h3 {
+    font-size: 1.8rem;
+    margin-bottom: 10px;
+  }
+  
+  .welcome-message p {
+    margin-bottom: 15px;
+  }
+  
+  .form-group {
+    margin-bottom: 15px;
+  }
 }
