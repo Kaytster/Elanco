@@ -232,9 +232,9 @@
     <div class="pet-card-container">
         <?php
         $pets = [
-            ["name" => "Basil", "age" => 13, "type" => "Maltese", "image" => "Maltese.jpg", "page" => "dashboard.php", "weight" => "7.8 kg", "health" => "Good"],
-            ["name" => "Snoppy", "age" => 3, "type" => "Beagle", "image" => "Beagle Dog.jpg", "page" => "dashboard.php", "weight" => "11 kg", "health" => "Excellent"],
-            ["name" => "Cooper", "age" => 8, "type" => "Bulldog", "image" => "Bulldog.jpg", "page" => "dashboard.php", "weight" => "25 kg", "health" => "Good"]
+            ["name" => "Basil", "age" => 13, "type" => "Maltese", "image" => "maltese dog.jpg", "page" => "dashboard.php", "weight" => "7.8 kg", "health" => "Good"],
+            ["name" => "Snoppy", "age" => 3, "type" => "Beagle", "image" => "beagle dog.jpg", "page" => "dashboard.php", "weight" => "11 kg", "health" => "Excellent"],
+            ["name" => "Cooper", "age" => 8, "type" => "Bulldog", "image" => "bulldog dog.jpg", "page" => "dashboard.php", "weight" => "25 kg", "health" => "Good"]
         ];
 
         foreach ($pets as $pet) {
@@ -270,7 +270,6 @@
                         <a href="dashboard.php?pet_id=<?php echo urlencode($pet['name']); ?>" class="ui-button">
                             <span><i class="fas fa-tachometer-alt"></i> View Dashboard</span>
                         </a>
-                        
                         <a href="trends.php?dog_id=CANINE<?php echo str_pad(array_search($pet, $pets) + 1, 3, '0', STR_PAD_LEFT); ?>" class="ui-button secondary">
                             <span><i class="fas fa-chart-line"></i> View Trends</span>
                         </a>

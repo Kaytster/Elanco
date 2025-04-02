@@ -464,7 +464,7 @@
                 
                 <div class="image-content">
                     <div class="blob-bg"></div>
-                    <img src="dogpic.png" alt="Pet Health Illustration" class="pet-image">
+                    <img src="dog.png" alt="Pet Health Illustration" class="pet-image">
                     <div class="brand-watermark">
                         <img src="Elanco.png" alt="Elanco" class="watermark-logo">
                     </div>
