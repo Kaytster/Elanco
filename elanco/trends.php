@@ -90,11 +90,11 @@ try {
     // Get pet name from landingpage.php data
     $petName = "Pet";
     if ($dogID == "CANINE001") {
-        $petName = "Snoopy";
+        $petName = "Basil";
     } elseif ($dogID == "CANINE002") {
-        $petName = "Charlie";
+        $petName = "Snoopy";
     } elseif ($dogID == "CANINE003") {
-        $petName = "Teddy";
+        $petName = "Cooper";
     }
     
     // Calculate average values for the period
@@ -358,9 +358,9 @@ try {
             <div class="form-group">
                 <label for="dog_id" class="form-label">Select Pet</label>
                 <select name="dog_id" id="dog_id" class="form-control">
-                    <option value="CANINE001" <?php echo ($dogID == 'CANINE001') ? 'selected' : ''; ?>>Snoopy</option>
-                    <option value="CANINE002" <?php echo ($dogID == 'CANINE002') ? 'selected' : ''; ?>>Charlie</option>
-                    <option value="CANINE003" <?php echo ($dogID == 'CANINE003') ? 'selected' : ''; ?>>Teddy</option>
+                    <option value="CANINE001" <?php echo ($dogID == 'CANINE001') ? 'selected' : ''; ?>>Basil</option>
+                    <option value="CANINE002" <?php echo ($dogID == 'CANINE002') ? 'selected' : ''; ?>>Snoopy</option>
+                    <option value="CANINE003" <?php echo ($dogID == 'CANINE003') ? 'selected' : ''; ?>>Cooper</option>
                 </select>
             </div>
             <div class="form-group">

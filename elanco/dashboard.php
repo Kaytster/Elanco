@@ -5,13 +5,13 @@ try {
     $db = new SQLite3('Elanco-Final.db');
     
     // Get the selected pet from URL parameter
-    $selectedPet = isset($_GET['pet_id']) ? $_GET['pet_id'] : 'Snoopy';
+    $selectedPet = isset($_GET['pet_id']) ? $_GET['pet_id'] : 'Basil';
     
     // Map pet names to dog IDs
     $dogIDMap = [
-        'Snoopy' => 'CANINE001',
-        'Charlie' => 'CANINE002',
-        'Teddy' => 'CANINE003'
+        'Basil' => 'CANINE001',
+        'Snoopy' => 'CANINE002',
+        'Cooper' => 'CANINE003'
     ];
     
     $dogID = $dogIDMap[$selectedPet] ?? 'CANINE001';

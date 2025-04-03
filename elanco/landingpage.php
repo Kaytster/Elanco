@@ -233,7 +233,7 @@
         <?php
         $pets = [
             ["name" => "Basil", "age" => 13, "type" => "Maltese", "image" => "maltese dog.jpg", "page" => "dashboard.php", "weight" => "7.8 kg", "health" => "Good"],
-            ["name" => "Snoppy", "age" => 3, "type" => "Beagle", "image" => "beagle dog.jpg", "page" => "dashboard.php", "weight" => "11 kg", "health" => "Excellent"],
+            ["name" => "Snoopy", "age" => 3, "type" => "Beagle", "image" => "beagle dog.jpg", "page" => "dashboard.php", "weight" => "11 kg", "health" => "Excellent"],
             ["name" => "Cooper", "age" => 8, "type" => "Bulldog", "image" => "bulldog dog.jpg", "page" => "dashboard.php", "weight" => "25 kg", "health" => "Good"]
         ];
 
