@@ -14,7 +14,7 @@ try {
         'Cooper' => 'CANINE003'
     ];
     
-    $dogID = $dogIDMap[$selectedPet] ?? 'CANINE001';
+    $dogID = $dogIDMap[$selectedPet] ? $dogIDMap[$selectedPet] : 'CANINE001';
     
     $dateID = isset($_GET['date']) ? $_GET['date'] : date('Y-m-d');
     $query = $db->prepare("SELECT strftime('%d-%m-%Y', ?)");
@@ -23,25 +23,25 @@ try {
     $row = $result->fetchArray(SQLITE3_NUM);
     $formattedDate = $row[0];
     
-    $weightID = $db->query("SELECT round(avg(Weight), 1) AS 'Weight_ID' FROM Activity WHERE Dog_ID='$dogID' AND D_Date='$formattedDate'");
+    $weightID = $db->query("SELECT round(avg(Weight), 1) AS 'Weight_ID' FROM Activity WHERE Dog_ID='$dogID' AND D_Date='$dateID'");
     $rowWEIGHT = $weightID->fetchArray(SQLITE3_ASSOC);
 
-    $normalID = $db->query("SELECT count(Behaviour_ID) AS 'Normal' FROM Activity WHERE Dog_ID='$dogID' AND D_Date='$formattedDate' AND Behaviour_ID='1'");
+    $normalID = $db->query("SELECT count(Behaviour_ID) AS 'Normal' FROM Activity WHERE Dog_ID='$dogID' AND D_Date='$dateID' AND Behaviour_ID='1'");
     $rowNORMAL = $normalID->fetchArray(SQLITE3_ASSOC);
 
-    $walkingID = $db->query("SELECT count(Behaviour_ID) AS 'Walking' FROM Activity WHERE Dog_ID='$dogID' AND D_Date='$formattedDate' AND Behaviour_ID='2'");
+    $walkingID = $db->query("SELECT count(Behaviour_ID) AS 'Walking' FROM Activity WHERE Dog_ID='$dogID' AND D_Date='$dateID' AND Behaviour_ID='2'");
     $rowWALKING = $walkingID->fetchArray(SQLITE3_ASSOC);
 
-    $eatingID = $db->query("SELECT count(Behaviour_ID) AS 'Eating' FROM Activity WHERE Dog_ID='$dogID' AND D_Date='$formattedDate' AND Behaviour_ID='3'");
+    $eatingID = $db->query("SELECT count(Behaviour_ID) AS 'Eating' FROM Activity WHERE Dog_ID='$dogID' AND D_Date='$dateID' AND Behaviour_ID='3'");
     $rowEATING = $eatingID->fetchArray(SQLITE3_ASSOC);
 
-    $sleepingID = $db->query("SELECT count(Behaviour_ID) AS 'Sleeping' FROM Activity WHERE Dog_ID='$dogID' AND D_Date='$formattedDate' AND Behaviour_ID='4'");
+    $sleepingID = $db->query("SELECT count(Behaviour_ID) AS 'Sleeping' FROM Activity WHERE Dog_ID='$dogID' AND D_Date='$dateID' AND Behaviour_ID='4'");
     $rowSLEEPING = $sleepingID->fetchArray(SQLITE3_ASSOC);
 
-    $playingID = $db->query("SELECT count(Behaviour_ID) AS 'Playing' FROM Activity WHERE Dog_ID='$dogID' AND D_Date='$formattedDate' AND Behaviour_ID='5'");
+    $playingID = $db->query("SELECT count(Behaviour_ID) AS 'Playing' FROM Activity WHERE Dog_ID='$dogID' AND D_Date='$dateID' AND Behaviour_ID='5'");
     $rowPLAYING = $playingID->fetchArray(SQLITE3_ASSOC);
 
-    $barkID = $db->query("SELECT round(avg(Frequency_ID), 1) AS 'Frequency_ID' FROM Activity WHERE Dog_ID='$dogID' AND D_Date='$formattedDate'");
+    $barkID = $db->query("SELECT round(avg(Frequency_ID), 1) AS 'Frequency_ID' FROM Activity WHERE Dog_ID='$dogID' AND D_Date='$dateID'");
     $rowBARK = $barkID->fetchArray(SQLITE3_ASSOC);
 
     $barkingFREQ = "";
@@ -133,6 +133,9 @@ src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/2.9.4/Chart.js">
 					<label for="date" class="form-label">Select Date:</label>
 					<input type="date" id="date" name="date" value="<?php echo $dateID; ?>" class="form-control">
 				</div>
+
+				<input type="hidden" name="pet_id" value="<?php echo htmlspecialchars($selectedPet); ?>">
+
 				<button type="submit" class="ui-button">
 					<span><i class="fas fa-calendar-check"></i> Update</span>
 				</button>
