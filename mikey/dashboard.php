@@ -133,6 +133,7 @@ src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/2.9.4/Chart.js">
 					<label for="date" class="form-label">Select Date:</label>
 					<input type="date" id="date" name="date" value="<?php echo $dateID; ?>" class="form-control">
 				</div>
+				<input type="hidden" name="pet_id" value="<?php echo $selectedPet; ?>">
 				<button type="submit" class="ui-button">
 					<span><i class="fas fa-calendar-check"></i> Update</span>
 				</button>
