@@ -1,0 +1,211 @@
+/* Global layout styles for consistent alignment across all pages */
+
+/* Standard container layout that aligns with navbar */
+.container {
+    margin-left: 180px; /* Match exactly with navbar width */
+    padding: 15px;
+    width: calc(100% - 180px);
+    max-width: 100%;
+    box-sizing: border-box;
+}
+
+/* Standard section styling */
+.section {
+    background: var(--card-bg);
+    border-radius: var(--radius);
+    box-shadow: var(--shadow);
+    padding: 15px;
+    margin-bottom: 20px;
+    width: 100%;
+    box-sizing: border-box;
+}
+
+/* Standard section title */
+.section-title {
+    font-size: 1.2rem;
+    font-weight: 600;
+    margin-bottom: 15px;
+    color: var(--primary);
+    text-align: left;
+}
+
+/* Page titles and subtitles */
+.page-title {
+    font-size: 1.8rem;
+    color: var(--primary);
+    margin-bottom: 10px;
+    font-weight: 700;
+    text-align: left;
+}
+
+.section-subtitle {
+    font-size: 1rem;
+    color: var(--text-secondary);
+    margin-bottom: 20px;
+    text-align: left;
+}
+
+/* Standard form styling */
+.form {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 10px;
+    width: 100%;
+    justify-content: flex-start;
+}
+
+.form-group {
+    flex: 1;
+    min-width: 180px;
+}
+
+.form-label {
+    display: block;
+    margin-bottom: 5px;
+    font-weight: 600;
+    color: var(--primary);
+    text-align: left;
+}
+
+.form-control {
+    width: 100%;
+    padding: 8px 12px;
+    border-radius: var(--radius);
+    border: 1px solid #ddd;
+    background: white;
+    font-size: 0.95rem;
+    transition: all 0.3s ease;
+    box-sizing: border-box;
+}
+
+.form-control:focus {
+    border-color: var(--primary);
+    box-shadow: 0 0 0 3px rgba(0, 103, 177, 0.1);
+    outline: none;
+}
+
+/* Standard grid/card layout */
+.grid {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 15px;
+    width: 100%;
+    justify-content: flex-start;
+}
+
+.card {
+    flex: 1;
+    min-width: 180px;
+    background: var(--card-bg);
+    border-radius: var(--radius);
+    box-shadow: var(--shadow);
+    padding: 15px;
+    position: relative;
+    overflow: hidden;
+    box-sizing: border-box;
+}
+
+/* Card content alignment */
+.card-title, .card-body {
+    text-align: left;
+}
+
+/* Standard chart/data visualization containers */
+.chart-container {
+    background-color: var(--card-bg);
+    border-radius: var(--radius);
+    box-shadow: var(--shadow);
+    padding: 15px;
+    margin-bottom: 20px;
+    width: 100%;
+    height: 400px; /* Fixed height for chart area */
+    box-sizing: border-box;
+    position: relative;
+    overflow: hidden;
+}
+
+.chart-title {
+    font-size: 1.2rem;
+    margin-bottom: 10px;
+    color: var(--primary);
+    text-align: left;
+}
+
+/* Prevent any center alignment */
+.text-center {
+    text-align: left !important;
+}
+
+/* Row alignment fix */
+.row {
+    justify-content: flex-start !important;
+    width: 100%;
+}
+
+/* Responsive breakpoints - match with navbar */
+@media (max-width: 992px) {
+    .container {
+        margin-left: 60px; /* Match navbar width in media query */
+        width: calc(100% - 60px);
+        padding: 10px;
+    }
+    
+    .form {
+        flex-direction: column;
+    }
+    
+    .form-group {
+        width: 100%;
+        min-width: 100%;
+    }
+    
+    .chart-container {
+        height: 350px;
+    }
+}
+
+@media (max-width: 768px) {
+    .container {
+        margin-left: 50px;
+        width: calc(100% - 50px);
+        padding: 8px;
+    }
+    
+    .section, .card, .chart-container {
+        padding: 10px;
+    }
+    
+    .chart-container {
+        height: 320px;
+    }
+    
+    .section-title, .chart-title {
+        font-size: 1.1rem;
+        margin-bottom: 8px;
+    }
+    
+    .page-title {
+        font-size: 1.6rem;
+    }
+}
+
+@media (max-width: 576px) {
+    .container {
+        margin-left: 50px;
+        width: calc(100% - 50px);
+        padding: 5px;
+    }
+    
+    .section, .card, .chart-container {
+        padding: 8px;
+        border-radius: 8px;
+    }
+    
+    .chart-container {
+        height: 300px;
+    }
+    
+    .page-title {
+        font-size: 1.4rem;
+    }
+} 

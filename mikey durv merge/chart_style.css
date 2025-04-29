@@ -1,0 +1,137 @@
+/* Chart page styling */
+.back-link {
+    display: inline-flex;
+    align-items: center;
+    color: var(--primary);
+    margin-bottom: 20px;
+    font-weight: 600;
+    transition: all 0.3s ease;
+    margin-left: 20px;
+    margin-top: 20px;
+}
+
+
+
+.back-link:hover {
+    transform: translateX(-5px);
+}
+
+.chart-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 20px;
+    padding: 0 20px;
+}
+
+.date-display {
+    font-size: 1.2rem;
+    color: var(--primary);
+    font-weight: 600;
+}
+
+#chartContainer {
+    height: 400px;
+    padding: 20px;
+    background: var(--card-bg);
+    border-radius: var(--radius);
+    box-shadow: var(--shadow);
+    margin-bottom: 20px;
+    max-width: 1000px;
+    margin-left: 20px;
+    margin-right: 20px;
+}
+
+.summary-stats {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 20px;
+    margin-bottom: 20px;
+    max-width: 1000px;
+    padding: 0 20px;
+}
+
+.stat-card {
+    flex: 1;
+    min-width: 180px;
+    background: var(--card-bg);
+    border-radius: var(--radius);
+    box-shadow: var(--shadow);
+    padding: 20px;
+    text-align: center;
+}
+
+.stat-title {
+    font-size: 0.9rem;
+    color: var(--text-secondary);
+    margin-bottom: 8px;
+}
+
+.stat-value {
+    font-size: 1.8rem;
+    font-weight: 700;
+    color: var(--primary);
+}
+
+.error-message {
+    color: var(--danger);
+    text-align: center;
+    padding: 20px;
+    font-weight: 500;
+}
+
+/* Container positioning */
+.container {
+    margin-left: 180px;
+    margin-right: 20px;
+    padding: 0;
+    width: calc(100% - 266px);
+    max-width: 1200px;
+}
+
+/* Media queries */
+@media (max-width: 992px) {
+    .container {
+        margin-left: 60px;
+        margin-right: 86px;
+        width: calc(100% - 146px);
+        padding: 0;
+    }
+    
+    #chartContainer {
+        height: 350px;
+    }
+}
+
+@media (max-width: 768px) {
+    .summary-stats {
+        flex-direction: column;
+    }
+    
+    .stat-card {
+        width: 100%;
+    }
+    
+    .chart-header {
+        flex-direction: column;
+        align-items: flex-start;
+    }
+    
+    .date-display {
+        margin-top: 10px;
+    }
+}
+
+@media (max-width: 576px) {
+    .container {
+        margin-left: 40px;
+        margin-right: 86px;
+        width: calc(100% - 126px);
+        padding: 0;
+    }
+    
+    #chartContainer {
+        height: 300px;
+        padding: 15px;
+    }
+} 

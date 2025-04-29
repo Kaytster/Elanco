@@ -1,0 +1,884 @@
+/* Main styling variables */
+:root {
+  --primary: #0067B1;
+  --primary-light: #82ADCC;
+  --primary-dark: #004B8D;
+  --secondary: #E8DEF8;
+  --accent: #FFD166;
+  --text-dark: #333333;
+  --text-light: #FFFFFF;
+  --background: #F5FAFF;
+  --card-bg: #FFFFFF;
+  --success: #06D6A0;
+  --warning: #FFD166;
+  --danger: #EF476F;
+  --shadow: 0 4px 12px rgba(0, 103, 177, 0.15);
+  --radius: 12px;
+  --transition: all 0.3s ease;
+  --gradient: linear-gradient(135deg, var(--primary), var(--primary-dark));
+}
+
+/* Base styles */
+body {
+  background: var(--background);
+  font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+  color: var(--text-dark);
+  margin: 0;
+  padding: 0;
+  min-height: 100vh;
+  overflow-x: hidden;
+}
+
+h1, h2, h3, h4, h5, h6 {
+  color: var(--primary);
+  font-weight: 600;
+  margin-top: 0;
+}
+
+a {
+  text-decoration: none;
+  color: var(--text-dark);
+  transition: var(--transition);
+}
+
+a:hover {
+  color: var(--primary);
+}
+
+/* Layout */
+.row {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 20px;
+  margin-bottom: 25px;
+  justify-content: flex-start;
+}
+
+@keyframes fadeIn {
+  from {
+    opacity: 0;
+    transform: translateY(10px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+/* UIverse-inspired Card styling */
+.card {
+  background-color: var(--card-bg);
+  border-radius: var(--radius);
+  box-shadow: var(--shadow);
+  margin-bottom: 20px;
+  overflow: hidden;
+  transition: transform 0.3s ease;
+  flex: 0 0 calc(33.333% - 20px);
+  min-width: 250px;
+  max-width: 350px;
+}
+
+.card:hover {
+  transform: translateY(-8px) scale(1.02);
+  box-shadow: rgba(0, 103, 177, 0.15) 0px 15px 25px, rgba(0, 103, 177, 0.08) 0px 5px 10px !important;
+}
+
+.card::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background: linear-gradient(135deg, rgba(0, 103, 177, 0.05), transparent);
+  z-index: 0;
+  opacity: 0;
+  transition: opacity 0.3s ease;
+}
+
+.card:hover::before {
+  opacity: 1;
+}
+
+.card-body {
+  padding: 20px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  position: relative;
+  z-index: 1;
+}
+
+.card-title {
+  font-size: 1.2rem;
+  font-weight: 700;
+  margin-bottom: 12px;
+  text-align: center;
+  color: var(--primary);
+}
+
+.card-title[style*="text-decoration: underline;"] {
+  text-decoration: none !important;
+  position: relative;
+  padding-bottom: 8px;
+}
+
+.card-title[style*="text-decoration: underline;"]:after {
+  content: '';
+  position: absolute;
+  width: 50%;
+  height: 3px;
+  background: var(--gradient);
+  bottom: 0;
+  left: 25%;
+  border-radius: 10px;
+}
+
+.card-text {
+  font-size: 2rem !important;
+  font-weight: 700;
+  color: var(--primary-dark);
+  margin: 10px 0;
+  background: var(--gradient);
+  -webkit-background-clip: text;
+  background-clip: text;
+  color: transparent;
+  text-shadow: 1px 1px 2px rgba(0, 103, 177, 0.1);
+}
+
+/* Progress circles - UIverse inspired */
+.activity-progress,
+.heart-progress,
+.temp-progress,
+.breath-progress {
+  --size: 180px;
+  --half-size: calc(var(--size) / 2);
+  --stroke-width: 10px;
+  --radius: calc((var(--size) - var(--stroke-width)) / 2);
+  --circumference: calc(var(--radius) * pi * 2);
+  --dash: calc((var(--progress) * var(--circumference)) / 100);
+  filter: drop-shadow(0 2px 5px rgba(0, 0, 0, 0.1));
+}
+
+.activity-progress circle,
+.heart-progress circle,
+.temp-progress circle,
+.breath-progress circle {
+  cx: var(--half-size);
+  cy: var(--half-size);
+  r: var(--radius);
+  stroke-width: var(--stroke-width);
+  fill: none;
+  stroke-linecap: round;
+}
+
+/* Background circles */
+.activity-progress circle.bgA,
+.heart-progress circle.bgH,
+.temp-progress circle.bgT,
+.breath-progress circle.bgB {
+  stroke: rgba(0, 103, 177, 0.08);
+}
+
+/* Foreground circles */
+.activity-progress circle.fgA {
+  transform: rotate(-90deg);
+  transform-origin: var(--half-size) var(--half-size);
+  stroke-dasharray: var(--dash) calc(var(--circumference) - var(--dash));
+  transition: stroke-dasharray 0.8s cubic-bezier(0.34, 1.56, 0.64, 1);
+  stroke: url(#gradient-blue);
+}
+
+.heart-progress circle.fgH {
+  transform: rotate(-90deg);
+  transform-origin: var(--half-size) var(--half-size);
+  stroke-dasharray: var(--dash) calc(var(--circumference) - var(--dash));
+  transition: stroke-dasharray 0.8s cubic-bezier(0.34, 1.56, 0.64, 1);
+  stroke: url(#gradient-red);
+}
+
+.temp-progress circle.fgT {
+  transform: rotate(-90deg);
+  transform-origin: var(--half-size) var(--half-size);
+  stroke-dasharray: var(--dash) calc(var(--circumference) - var(--dash));
+  transition: stroke-dasharray 0.8s cubic-bezier(0.34, 1.56, 0.64, 1);
+  stroke: url(#gradient-yellow);
+}
+
+.breath-progress circle.fgB {
+  transform: rotate(-90deg);
+  transform-origin: var(--half-size) var(--half-size);
+  stroke-dasharray: var(--dash) calc(var(--circumference) - var(--dash));
+  transition: stroke-dasharray 0.8s cubic-bezier(0.34, 1.56, 0.64, 1);
+  stroke: url(#gradient-green);
+}
+
+/* SVG gradients for circles */
+.svg-defs {
+  position: absolute;
+  width: 0;
+  height: 0;
+}
+
+/* Text in circles */
+text {
+  font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+  font-size: 24px;
+  font-weight: 700;
+  fill: var(--primary-dark);
+}
+
+/* Centered text on images */
+.centered {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+  font-size: 22px;
+  font-weight: 700;
+  color: var(--primary-dark);
+}
+
+/* Chart styling */
+#myChart {
+  width: 100% !important;
+  max-width: 250px !important;
+  margin: auto;
+  height: auto !important;
+}
+
+/* Images in cards */
+.card-body img {
+  display: block;
+  margin: 10px auto;
+  max-width: 100%;
+  height: auto;
+  max-height: 120px;
+  transition: var(--transition);
+  filter: drop-shadow(0 3px 6px rgba(0, 0, 0, 0.1));
+}
+
+/* UIverse-inspired Date picker styling */
+.date-picker {
+  border: 1px solid var(--primary-light);
+  border-radius: var(--radius);
+  padding: 12px;
+  width: 100%;
+  color: var(--primary-dark);
+  font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+  font-size: 1rem;
+  box-shadow: 0 2px 6px rgba(0, 103, 177, 0.1);
+  transition: var(--transition);
+  background-color: rgba(255, 255, 255, 0.8);
+  cursor: pointer;
+}
+
+.date-picker:focus {
+  outline: none;
+  border-color: var(--primary);
+  box-shadow: 0 0 0 3px rgba(0, 103, 177, 0.2);
+  background-color: white;
+}
+
+.date-picker:hover {
+  border-color: var(--primary);
+  background-color: white;
+}
+
+/* Responsive adjustments */
+@media (max-width: 1400px) {
+  .row > .card {
+    flex: 0 0 calc(50% - 20px);
+    max-width: calc(50% - 20px);
+  }
+  
+  .card-body {
+    padding: 15px;
+  }
+}
+
+@media (max-width: 1200px) {
+  .row {
+    gap: 15px;
+  }
+  
+  .card {
+    min-width: 220px;
+  }
+  
+  .activity-progress,
+  .heart-progress,
+  .temp-progress,
+  .breath-progress {
+    --size: 160px;
+  }
+  
+  .circular-progress {
+    width: 160px !important;
+    height: 160px !important;
+  }
+  
+  text {
+    font-size: 20px;
+  }
+  
+  .centered {
+    font-size: 20px;
+  }
+}
+
+@media (max-width: 992px) {
+  .container {
+    margin-left: 60px;
+    margin-right: 86px;
+    width: calc(100% - 146px);
+    padding: 0;
+  }
+  
+  .card {
+    flex: 0 0 calc(50% - 15px);
+    max-width: calc(50% - 15px);
+  }
+  
+  nav {
+    width: 60px !important;
+  }
+  
+  nav span, nav a span {
+    display: none !important;
+  }
+  
+  nav img {
+    width: 40px !important;
+  }
+}
+
+@media (max-width: 768px) {
+  .section-title {
+    margin: 10px 0 8px;
+    font-size: 1.2rem;
+  }
+  
+  .row {
+    gap: 10px;
+    margin-bottom: 10px;
+  }
+  
+  .card-body {
+    padding: 12px;
+  }
+  
+  .circular-progress, .circular-progress-container svg {
+    width: 150px !important;
+    height: 150px !important;
+  }
+  
+  .percent-value {
+    font-size: 1.6rem !important;
+  }
+}
+
+@media (max-width: 576px) {
+  .container {
+    margin-left: 80px;
+    margin-right: 86px;
+    width: calc(100% - 166px);
+    padding: 8px;
+  }
+  
+  .card-body {
+    padding: 10px;
+  }
+  
+  nav {
+    width: 40px !important;
+  }
+  
+  .circular-progress, .circular-progress-container svg {
+    width: 130px !important;
+    height: 130px !important;
+  }
+  
+  .percent-value {
+    font-size: 1.5rem !important;
+  }
+  
+  .percent-label {
+    font-size: 0.75rem !important;
+  }
+}
+
+/* Additional styling for navbar (to work with navbar.php) */
+nav {
+  background: linear-gradient(to bottom, var(--primary), var(--primary-dark)) !important;
+  color: var(--text-light) !important;
+  position: fixed;
+  height: 100%;
+  width: 180px !important;
+  display: flex;
+  flex-direction: column;
+  justify-content: flex-start;
+  box-shadow: 2px 0 10px rgba(0, 0, 0, 0.1);
+  z-index: 100;
+}
+
+nav a {
+  color: var(--text-light) !important;
+  text-decoration: none;
+  padding: 15px 20px !important;
+  margin: 5px 0 !important;
+  border-radius: 8px;
+  transition: all 0.3s ease;
+  font-weight: 500;
+  position: relative;
+  overflow: hidden;
+  display: flex;
+  align-items: center;
+  gap: 10px;
+}
+
+nav a::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 3px;
+  height: 100%;
+  background-color: var(--text-light);
+  transform: scaleY(0);
+  transition: transform 0.3s ease;
+}
+
+nav a:hover::before {
+  transform: scaleY(1);
+}
+
+nav .logout {
+  margin-top: auto !important;
+  margin-bottom: 20px;
+}
+
+nav img {
+  width: 120px !important;
+  margin: 20px auto !important;
+  display: block;
+}
+
+nav .logout img {
+  width: 15px !important;
+  margin-right: 10px !important;
+  display: inline-block;
+}
+
+nav a:hover {
+  background-color: rgba(255, 255, 255, 0.15) !important;
+  transform: translateX(5px);
+}
+
+/* Container positioning next to navbar */
+.container {
+  margin-left: 180px;
+  margin-right: 86px;
+  padding: 0;
+  width: calc(100% - 266px);
+  max-width: 1200px;
+}
+
+/* Page titles */
+h3.card-title {
+  font-size: 1.1rem;
+  margin-bottom: 15px;
+}
+
+/* Fix for any inline styles on the card */
+.card[style*="background-color"] {
+  background-color: var(--card-bg) !important;
+}
+
+/* UIverse-inspired button */
+.ui-button {
+  position: relative;
+  padding: 12px 24px;
+  border: none;
+  background-color: transparent;
+  cursor: pointer;
+  border-radius: 50px;
+  font-weight: 600;
+  color: var(--text-light);
+  background: var(--gradient);
+  box-shadow: 0 4px 10px rgba(0, 103, 177, 0.25);
+  overflow: hidden;
+  transition: all 0.3s ease;
+}
+
+.ui-button span {
+  position: relative;
+  z-index: 1;
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+}
+
+.ui-button::before {
+  content: "";
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background: linear-gradient(135deg, var(--primary-dark), var(--primary));
+  opacity: 0;
+  transition: opacity 0.3s ease;
+}
+
+.ui-button:hover {
+  transform: translateY(-3px);
+  box-shadow: 0 6px 15px rgba(0, 103, 177, 0.3);
+}
+
+.ui-button:hover::before {
+  opacity: 1;
+}
+
+.ui-button:active {
+  transform: translateY(-1px);
+  box-shadow: 0 3px 8px rgba(0, 103, 177, 0.3);
+}
+
+/* Chart container styles */
+.chart-container {
+  max-width: 3000px;
+  background-color: var(--card-bg);
+  border-radius: var(--radius);
+  box-shadow: var(--shadow);
+  padding: 25px;
+  margin: 25px auto;
+  width: 95%;
+  max-width: 1100px;
+  position: relative;
+  overflow: hidden;
+  height: 350px;
+  margin-bottom: 25px;
+}
+
+.chart-container::before {
+  max-width: 2000px;
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 5px;
+  background: var(--gradient);
+}
+
+.chart-title {
+  color: var(--primary);
+  font-size: 1.6rem;
+  font-weight: 700;
+  margin-bottom: 20px;
+  position: relative;
+  display: inline-block;
+}
+
+.chart-title::after {
+  content: '';
+  position: absolute;
+  bottom: -8px;
+  left: 0;
+  width: 60px;
+  height: 3px;
+  background: var(--gradient);
+  border-radius: 10px;
+}
+
+/* Trends page specific styles */
+.trend-card {
+  border-radius: var(--radius);
+  box-shadow: var(--shadow);
+  margin-bottom: 25px;
+  overflow: hidden;
+  background: var(--card-bg);
+  transition: transform 0.3s ease;
+}
+
+.trend-card:hover {
+  transform: translateY(-5px);
+  box-shadow: 0 10px 20px rgba(0, 103, 177, 0.15);
+}
+
+.trend-header {
+  padding: 15px 20px;
+  background: var(--gradient);
+  color: var(--text-light);
+  font-weight: 600;
+  font-size: 1.2rem;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.trend-body {
+  padding: 20px;
+}
+
+.trend-chart {
+  width: 100%;
+  height: 300px;
+}
+
+/* Fix any Safari-specific SVG issues */
+@supports (-webkit-appearance:none) {
+  .activity-progress circle.fgA,
+  .heart-progress circle.fgH,
+  .temp-progress circle.fgT,
+  .breath-progress circle.fgB {
+    stroke: var(--primary);
+  }
+}
+
+/* Make section spacing more compact */
+section {
+  margin-bottom: 25px;
+}
+
+/* Make page title more compact */
+.page-title {
+  margin-bottom: 10px;
+  font-size: 2.2rem;
+  font-weight: 700;
+  color: var(--primary);
+}
+
+.section-subtitle {
+  margin-bottom: 20px;
+  color: var(--text-secondary);
+}
+
+/* Adjust form layouts to be more compact */
+.form-group {
+  margin-bottom: 15px;
+}
+
+/* Secondary button style */
+.ui-button.secondary {
+  background: transparent;
+  color: var(--primary);
+  border: 2px solid var(--primary);
+  box-shadow: none;
+}
+
+.ui-button.secondary:hover {
+  background-color: rgba(0, 103, 177, 0.1);
+  transform: translateY(-3px);
+}
+
+.ui-button.secondary:active {
+  transform: translateY(-1px);
+}
+
+/* Pet actions container */
+.pet-actions {
+  display: flex;
+  gap: 15px;
+  margin-top: 15px;
+}
+
+@media (max-width: 576px) {
+  .pet-actions {
+    flex-direction: column;
+  }
+}
+
+/* Adjustments for dashboard page */
+.section-title {
+  margin: 15px 0 10px;
+  font-size: 1.3rem;
+}
+
+.row {
+  gap: 15px;
+  margin-bottom: 15px;
+}
+
+.card {
+  margin-bottom: 15px;
+}
+
+.card-body {
+  padding: 15px;
+}
+
+.progress-circle-container {
+  margin-top: 5px;
+}
+
+/* Fix chart sizes in dashboard */
+#myChart {
+  max-height: 150px !important;
+  margin-top: 5px !important;
+}
+
+/* Very small screens */
+@media (max-width: 400px) {
+  .container {
+    margin-left: 50px;
+    margin-right: 86px;
+    width: calc(100% - 136px);
+    padding: 8px;
+  }
+  
+  nav {
+    width: 40px !important;
+  }
+  
+  nav a {
+    padding: 10px !important;
+  }
+  
+  nav img {
+    width: 30px !important;
+    margin: 10px auto !important;
+  }
+  
+  .card-body {
+    padding: 10px;
+  }
+  
+  .card-title {
+    font-size: 1rem;
+  }
+  
+  .circular-progress, .circular-progress-container svg {
+    width: 120px !important;
+    height: 120px !important;
+  }
+  
+  .percent-value {
+    font-size: 1.5rem !important;
+  }
+  
+  .percent-label {
+    font-size: 0.7rem !important;
+  }
+  
+  .section-title {
+    font-size: 1.1rem;
+  }
+}
+
+/* Notification styles */
+#notification-container {
+  position: fixed;
+  bottom: 20px;
+  right: 20px;
+  z-index: 9999;
+}
+
+.notification {
+  background-color: var(--card-bg);
+  border-radius: var(--radius);
+  box-shadow: var(--shadow);
+  padding: 15px 20px;
+  margin-bottom: 10px;
+  min-width: 280px;
+  max-width: 350px;
+  transition: all 0.3s ease;
+  opacity: 0;
+  transform: translateX(50px);
+  overflow: hidden;
+  display: flex;
+  align-items: center;
+  position: relative;
+}
+
+.notification.show {
+  opacity: 1;
+  transform: translateX(0);
+}
+
+.notification::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 0;
+  height: 100%;
+  width: 5px;
+}
+
+.notification.success::before {
+  background-color: var(--success);
+}
+
+.notification.warning::before {
+  background-color: var(--warning);
+}
+
+.notification.error::before {
+  background-color: var(--danger);
+}
+
+.notification.info::before {
+  background-color: var(--primary);
+}
+
+.notification-icon {
+  font-size: 1.5rem;
+  margin-right: 15px;
+}
+
+.notification-content {
+  flex: 1;
+}
+
+.notification-title {
+  font-weight: 600;
+  margin-bottom: 5px;
+  color: var(--text-dark);
+}
+
+.notification-message {
+  color: var(--text-secondary);
+  font-size: 0.9rem;
+}
+
+.notification-close {
+  background: none;
+  border: none;
+  font-size: 1.2rem;
+  cursor: pointer;
+  color: #aaa;
+  padding: 0 5px;
+  margin-left: 10px;
+}
+
+.notification-close:hover {
+  color: var(--text-dark);
+}
+
+@keyframes progress {
+  from { width: 100%; }
+  to { width: 0%; }
+}
+
+.notification-progress {
+  position: absolute;
+  bottom: 0;
+  left: 0;
+  height: 3px;
+  width: 100%;
+  background-color: rgba(0, 0, 0, 0.1);
+}
+
+.notification-progress::after {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 0;
+  height: 100%;
+  width: 100%;
+  background-color: var(--primary);
+  animation: progress 5s linear forwards;
+}
