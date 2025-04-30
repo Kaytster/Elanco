@@ -5,7 +5,9 @@ try {
     $db = new SQLite3('Elanco-Final.db');
     
     // Get the selected pet from URL parameter
-    $selectedPet = isset($_GET['pet_id']) ? $_GET['pet_id'] : 'Snoopy';
+    $selectedPet = isset($_GET['pet_id']) ? $_GET['pet_id'] : 'Basil';
+	$dogID = isset($_GET['dog_id']) ? $_GET['dog_id'] : 'CANINE001';
+	$dateID = isset($_GET['date']) ? $_GET['date'] : date('Y-m-d');
     
     // Map pet name to dog ID
     if ($selectedPet == 'Snoopy') {

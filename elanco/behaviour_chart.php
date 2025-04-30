@@ -1,5 +1,7 @@
 <?php
 // Get date parameter or set default
+$selectedPet = isset($_GET['pet_id']) ? $_GET['pet_id'] : 'Basil';
+$dogID = isset($_GET['dog_id']) ? $_GET['dog_id'] : 'CANINE001';
 $date = isset($_GET['date']) ? $_GET['date'] : date('Y-m-d');
 ?>
 <!DOCTYPE html>
@@ -85,7 +87,7 @@ $date = isset($_GET['date']) ? $_GET['date'] : date('Y-m-d');
 </head>
 <body>
     <div class="container">
-        <a href="dashboard.php?date=<?php echo $date; ?>" class="back-link">
+        <a href="dashboard.php?date=<?php echo $date; ?>&pet_id=<?php echo $selectedPet; ?>" class="back-link">
             <i class="fas fa-arrow-left"></i> Back to Dashboard
         </a>
         
@@ -121,7 +123,7 @@ $date = isset($_GET['date']) ? $_GET['date'] : date('Y-m-d');
         const queryDate = '<?php echo date('d-m-Y', strtotime($date)); ?>';
         
         // Fetch data from the server
-        fetch('fetch_dog_data.php?date=' + queryDate)
+        fetch('fetch_dog_data.php?date=' + queryDate + '&dog_id=<?php echo $dogID; ?>')
         .then(response => response.json())
         .then(data => {
             const behaviourCounts = {};
