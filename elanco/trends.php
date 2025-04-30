@@ -16,6 +16,13 @@ try {
         $endDate = date('d-m-Y', strtotime($_GET['end_date']));
     }
     
+    // Debug mode toggle
+    $debugMode = isset($_GET['debug']) && $_GET['debug'] == 1;
+    
+    // Debug date formats - can be removed after testing
+    //echo "Start Date: " . $startDate . "<br>";
+    //echo "End Date: " . $endDate . "<br>";
+    
     // Default dog ID
     $dogID = 'CANINE001';
     if (isset($_GET['dog_id']) && !empty($_GET['dog_id'])) {
@@ -51,9 +58,11 @@ try {
                AVG(a.Weight) as Weight
         FROM Activity a
         WHERE a.Dog_ID = :dogID
-        AND a.D_Date BETWEEN :startDate AND :endDate
+        AND date(substr(a.D_Date, 7, 4) || '-' || substr(a.D_Date, 4, 2) || '-' || substr(a.D_Date, 1, 2)) 
+            BETWEEN date(substr(:startDate, 7, 4) || '-' || substr(:startDate, 4, 2) || '-' || substr(:startDate, 1, 2))
+            AND date(substr(:endDate, 7, 4) || '-' || substr(:endDate, 4, 2) || '-' || substr(:endDate, 1, 2))
         GROUP BY a.D_Date
-        ORDER BY a.D_Date ASC
+        ORDER BY date(substr(a.D_Date, 7, 4) || '-' || substr(a.D_Date, 4, 2) || '-' || substr(a.D_Date, 1, 2)) ASC
     ";
     
     $stmt = $db->prepare($query);
@@ -71,14 +80,22 @@ try {
         $metricData[$metric] = [];
     }
     
+    // Debug info
+    $debug_dates = [];
+    
     while ($row = $result->fetchArray(SQLITE3_ASSOC)) {
         $dates[] = $row['D_Date'];
+        $debug_dates[] = $row['D_Date']; // For debugging
         
         // Store data for each metric
         foreach ($metrics as $metric) {
             $metricData[$metric][] = $row[$metric];
         }
     }
+    
+    // Debug data - uncomment to see dates being displayed
+    //echo "<pre>Selected Date Range: $startDate to $endDate<br>";
+    //echo "Dates in result: " . implode(", ", $debug_dates) . "</pre>";
     
     // Get pet info
     $petInfoQuery = "SELECT * FROM Activity WHERE Dog_ID = :dogID LIMIT 1";
@@ -90,11 +107,11 @@ try {
     // Get pet name from landingpage.php data
     $petName = "Pet";
     if ($dogID == "CANINE001") {
-        $petName = "Basil";
-    } elseif ($dogID == "CANINE002") {
         $petName = "Snoopy";
+    } elseif ($dogID == "CANINE002") {
+        $petName = "Charlie";
     } elseif ($dogID == "CANINE003") {
-        $petName = "Cooper";
+        $petName = "Teddy";
     }
     
     // Calculate average values for the period
@@ -373,13 +390,36 @@ try {
                 <input type="date" name="end_date" id="end_date" class="form-control" 
                        value="<?php echo date('Y-m-d', strtotime($endDate)); ?>">
             </div>
+            <input type="hidden" name="metric1" id="form_metric1" value="<?php echo $metric1; ?>">
+            <input type="hidden" name="metric2" id="form_metric2" value="<?php echo $metric2; ?>">
             <div class="form-group">
                 <button type="submit" class="ui-button">
                     <span><i class="fas fa-filter"></i> Apply Filters</span>
                 </button>
             </div>
         </form>
+        <?php if ($debugMode): ?>
+            <a href="<?php echo strtok($_SERVER["REQUEST_URI"], '?') . '?' . http_build_query(array_merge($_GET, ['debug' => 0])); ?>" style="font-size: 12px; color: #6c757d; margin-top: 5px; display: inline-block;">
+                <i class="fas fa-bug"></i> Disable Debug Mode
+            </a>
+        <?php else: ?>
+            <a href="<?php echo strtok($_SERVER["REQUEST_URI"], '?') . '?' . http_build_query(array_merge($_GET, ['debug' => 1])); ?>" style="font-size: 12px; color: #6c757d; margin-top: 5px; display: inline-block;">
+                <i class="fas fa-bug"></i> Enable Debug Mode
+            </a>
+        <?php endif; ?>
     </section>
+    
+    <?php if ($debugMode): ?>
+    <!-- Debug Information Section -->
+    <section class="section" style="background-color: #f8f9fa; border: 1px solid #dee2e6; padding: 15px; border-radius: 5px;">
+        <h3 style="color: #6c757d;">Debug Information</h3>
+        <p><strong>Date Range:</strong> <?php echo $startDate; ?> to <?php echo $endDate; ?></p>
+        <p><strong>Selected Pet:</strong> <?php echo $dogID; ?> (<?php echo $petName; ?>)</p>
+        <p><strong>Date Format in DB:</strong> DD-MM-YYYY</p>
+        <p><strong>Dates in Result:</strong> <?php echo implode(", ", $debug_dates); ?></p>
+        <p><strong>SQL Query:</strong> <pre style="background-color: #f1f1f1; padding: 10px; overflow: auto;"><?php echo str_replace(array(':dogID', ':startDate', ':endDate'), array("'$dogID'", "'$startDate'", "'$endDate'"), $query); ?></pre></p>
+    </section>
+    <?php endif; ?>
     
     <!-- Trend Insights Section -->
     <section class="section">
@@ -555,8 +595,9 @@ try {
             const parts = dateStr.split('-');
             const day = parts[0];
             const month = parts[1];
+            const year = parts[2];
             const monthNames = ['Jan', 'Feb', 'Mar', 'Apr', 'May', 'Jun', 'Jul', 'Aug', 'Sep', 'Oct', 'Nov', 'Dec'];
-            return `${day} ${monthNames[parseInt(month, 10) - 1]}`;
+            return `${day} ${monthNames[parseInt(month, 10) - 1]} ${year}`;
         }
         
         // Create comparison chart
@@ -580,9 +621,22 @@ try {
                 chartInstance.destroy();
             }
             
-            // Get data for selected metrics
-            const values1 = metricsData[metric1];
-            const values2 = metricsData[metric2];
+            // Format dates for sorting
+            const formattedDates = dates.map(dateStr => {
+                const parts = dateStr.split('-');
+                return {
+                    original: dateStr,
+                    sortable: new Date(`${parts[2]}-${parts[1]}-${parts[0]}`).getTime(),
+                    display: formatDate(dateStr)
+                };
+            });
+            
+            // Get data for selected metrics with dates
+            const chartData = formattedDates.map((date, index) => ({
+                date: date,
+                value1: metricsData[metric1][index],
+                value2: metricsData[metric2][index]
+            }));
             
             // Create new chart
             let ctx = document.getElementById("comparisonChart").getContext("2d");
@@ -591,19 +645,27 @@ try {
             const color1 = 'rgba(0, 103, 177, 0.8)';  // Primary color
             const color2 = 'rgba(239, 71, 111, 0.8)'; // Secondary color
             
+            // Sort data by date if needed
+            chartData.sort((a, b) => a.date.sortable - b.date.sortable);
+            
+            // Extract sorted values
+            const sortedDates = chartData.map(item => item.date.display);
+            const sortedValues1 = chartData.map(item => item.value1);
+            const sortedValues2 = chartData.map(item => item.value2);
+            
             // Determine the maximum value for each dataset to scale appropriately
-            const max1 = Math.max(...values1) * 1.1;
-            const max2 = Math.max(...values2) * 1.1;
+            const max1 = Math.max(...sortedValues1) * 1.1;
+            const max2 = Math.max(...sortedValues2) * 1.1;
             
             // Set up chart configuration with improved appearance
             chartInstance = new Chart(ctx, {
                 type: 'line',
                 data: {
-                    labels: dates,
+                    labels: sortedDates,
                     datasets: [
                         {
                             label: labels[metric1] || metric1.replace('_', ' '),
-                            data: values1,
+                            data: sortedValues1,
                             borderColor: color1,
                             backgroundColor: 'rgba(0, 103, 177, 0.1)',
                             borderWidth: 3,
@@ -618,7 +680,7 @@ try {
                         },
                         {
                             label: labels[metric2] || metric2.replace('_', ' '),
-                            data: values2,
+                            data: sortedValues2,
                             borderColor: color2,
                             backgroundColor: 'rgba(239, 71, 111, 0.1)',
                             borderWidth: 3,
@@ -666,7 +728,7 @@ try {
                                 padding: 8,
                                 color: '#555',
                                 callback: function(value, index) {
-                                    return formatDate(dates[index]);
+                                    return sortedDates[index]; // Display formatted date
                                 }
                             }
                         },
@@ -729,14 +791,13 @@ try {
                         tooltip: {
                             callbacks: {
                                 title: function(tooltipItems) {
-                                    return tooltipItems[0].raw.y;
+                                    return sortedDates[tooltipItems[0].dataIndex];
                                 },
                                 label: function(tooltipItem) {
-                                    const dataPoint = tooltipItem.raw;
-                                    return [
-                                        `Date: ${dataPoint.x}`,
-                                        `Activity Level: ${Math.round(dataPoint.v * 10) / 10}`
-                                    ];
+                                    const metric = tooltipItem.datasetIndex === 0 ? metric1 : metric2;
+                                    const label = labels[metric] || metric.replace('_', ' ');
+                                    const value = tooltipItem.raw;
+                                    return `${label}: ${value.toFixed(2)}`;
                                 }
                             },
                             backgroundColor: 'rgba(255, 255, 255, 0.95)',
@@ -775,6 +836,11 @@ try {
         document.getElementById('updateComparisonChart').addEventListener('click', function() {
             const metric1 = document.getElementById('metric1').value;
             const metric2 = document.getElementById('metric2').value;
+            
+            // Update hidden form fields
+            document.getElementById('form_metric1').value = metric1;
+            document.getElementById('form_metric2').value = metric2;
+            
             createComparisonChart(metric1, metric2);
         });
         

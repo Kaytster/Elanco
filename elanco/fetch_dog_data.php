@@ -6,6 +6,7 @@ $pdo->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
 // Get the requested hour and date from the GET request
 $hour = isset($_GET['hour']) ? intval($_GET['hour']) : null;
 $date = isset($_GET['date']) ? $_GET['date'] : date('d-m-Y');
+$dogID = isset($_GET['dog_id']) ? $_GET['dog_id'] : 'CANINE001'; // Get dog ID from URL parameter
 
 // Format the date parameter to match database format if needed
 $formattedDate = $date; // Default, already in correct format
@@ -17,7 +18,7 @@ $query = "
     FROM Activity a
     INNER JOIN Behaviour b ON a.Behaviour_ID = b.Behaviour_ID
     INNER JOIN B_Frequency f ON a.Frequency_ID = f.Frequency_ID
-    WHERE a.Dog_ID = 'CANINE001'
+    WHERE a.Dog_ID = :dogID
     AND a.D_Date = :date";
 
 // If an hour is selected, filter the data
@@ -30,8 +31,9 @@ $query .= " ORDER BY a.Hour ASC";
 
 $stmt = $pdo->prepare($query);
 
-// Bind the date parameter
+// Bind the parameters
 $stmt->bindParam(':date', $formattedDate, PDO::PARAM_STR);
+$stmt->bindParam(':dogID', $dogID, PDO::PARAM_STR);
 
 // Bind the hour parameter if provided
 if (!is_null($hour)) {

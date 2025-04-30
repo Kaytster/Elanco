@@ -5,16 +5,17 @@ try {
     $db = new SQLite3('Elanco-Final.db');
     
     // Get the selected pet from URL parameter
-    $selectedPet = isset($_GET['pet_id']) ? $_GET['pet_id'] : 'Basil';
+    $selectedPet = isset($_GET['pet_id']) ? $_GET['pet_id'] : 'Snoopy';
     
-    // Map pet names to dog IDs
-    $dogIDMap = [
-        'Basil' => 'CANINE001',
-        'Snoopy' => 'CANINE002',
-        'Cooper' => 'CANINE003'
-    ];
-    
-    $dogID = $dogIDMap[$selectedPet] ? $dogIDMap[$selectedPet] : 'CANINE001';
+    // Map pet name to dog ID
+    if ($selectedPet == 'Snoopy') {
+        $dogID = 'CANINE002';
+    } elseif ($selectedPet == 'Cooper') {
+        $dogID = 'CANINE003';
+    } else {
+        // Default to Basil
+        $dogID = 'CANINE001';
+    }
     
     $dateID = isset($_GET['date']) ? $_GET['date'] : date('Y-m-d');
     $query = $db->prepare("SELECT strftime('%d-%m-%Y', ?)");
@@ -23,25 +24,25 @@ try {
     $row = $result->fetchArray(SQLITE3_NUM);
     $formattedDate = $row[0];
     
-    $weightID = $db->query("SELECT round(avg(Weight), 1) AS 'Weight_ID' FROM Activity WHERE Dog_ID='$dogID' AND D_Date='$dateID'");
+    $weightID = $db->query("SELECT round(avg(Weight), 1) AS 'Weight_ID' FROM Activity WHERE Dog_ID='$dogID' AND D_Date='$formattedDate'");
     $rowWEIGHT = $weightID->fetchArray(SQLITE3_ASSOC);
 
-    $normalID = $db->query("SELECT count(Behaviour_ID) AS 'Normal' FROM Activity WHERE Dog_ID='$dogID' AND D_Date='$dateID' AND Behaviour_ID='1'");
+    $normalID = $db->query("SELECT count(Behaviour_ID) AS 'Normal' FROM Activity WHERE Dog_ID='$dogID' AND D_Date='$formattedDate' AND Behaviour_ID='1'");
     $rowNORMAL = $normalID->fetchArray(SQLITE3_ASSOC);
 
-    $walkingID = $db->query("SELECT count(Behaviour_ID) AS 'Walking' FROM Activity WHERE Dog_ID='$dogID' AND D_Date='$dateID' AND Behaviour_ID='2'");
+    $walkingID = $db->query("SELECT count(Behaviour_ID) AS 'Walking' FROM Activity WHERE Dog_ID='$dogID' AND D_Date='$formattedDate' AND Behaviour_ID='2'");
     $rowWALKING = $walkingID->fetchArray(SQLITE3_ASSOC);
 
-    $eatingID = $db->query("SELECT count(Behaviour_ID) AS 'Eating' FROM Activity WHERE Dog_ID='$dogID' AND D_Date='$dateID' AND Behaviour_ID='3'");
+    $eatingID = $db->query("SELECT count(Behaviour_ID) AS 'Eating' FROM Activity WHERE Dog_ID='$dogID' AND D_Date='$formattedDate' AND Behaviour_ID='3'");
     $rowEATING = $eatingID->fetchArray(SQLITE3_ASSOC);
 
-    $sleepingID = $db->query("SELECT count(Behaviour_ID) AS 'Sleeping' FROM Activity WHERE Dog_ID='$dogID' AND D_Date='$dateID' AND Behaviour_ID='4'");
+    $sleepingID = $db->query("SELECT count(Behaviour_ID) AS 'Sleeping' FROM Activity WHERE Dog_ID='$dogID' AND D_Date='$formattedDate' AND Behaviour_ID='4'");
     $rowSLEEPING = $sleepingID->fetchArray(SQLITE3_ASSOC);
 
-    $playingID = $db->query("SELECT count(Behaviour_ID) AS 'Playing' FROM Activity WHERE Dog_ID='$dogID' AND D_Date='$dateID' AND Behaviour_ID='5'");
+    $playingID = $db->query("SELECT count(Behaviour_ID) AS 'Playing' FROM Activity WHERE Dog_ID='$dogID' AND D_Date='$formattedDate' AND Behaviour_ID='5'");
     $rowPLAYING = $playingID->fetchArray(SQLITE3_ASSOC);
 
-    $barkID = $db->query("SELECT round(avg(Frequency_ID), 1) AS 'Frequency_ID' FROM Activity WHERE Dog_ID='$dogID' AND D_Date='$dateID'");
+    $barkID = $db->query("SELECT round(avg(Frequency_ID), 1) AS 'Frequency_ID' FROM Activity WHERE Dog_ID='$dogID' AND D_Date='$formattedDate'");
     $rowBARK = $barkID->fetchArray(SQLITE3_ASSOC);
 
     $barkingFREQ = "";
@@ -133,9 +134,7 @@ src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/2.9.4/Chart.js">
 					<label for="date" class="form-label">Select Date:</label>
 					<input type="date" id="date" name="date" value="<?php echo $dateID; ?>" class="form-control">
 				</div>
-
-				<input type="hidden" name="pet_id" value="<?php echo htmlspecialchars($selectedPet); ?>">
-
+				<input type="hidden" name="pet_id" value="<?php echo $selectedPet; ?>">
 				<button type="submit" class="ui-button">
 					<span><i class="fas fa-calendar-check"></i> Update</span>
 				</button>
@@ -165,7 +164,7 @@ src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/2.9.4/Chart.js">
 					</div>
 				</div>
 				<div class="card">
-					<a href="Weight_chart.php?date=<?php echo $dateID; ?>">
+					<a href="Weight_chart.php?date=<?php echo $dateID; ?>&pet_id=<?php echo $selectedPet; ?>&dog_id=<?php echo $dogID; ?>">
 					<div class="card-body">
 						<h3 class="card-title">Weight</h3>
 						<p class="card-value"><?php echo $rowWEIGHT['Weight_ID']?> kg</p>
@@ -180,7 +179,7 @@ src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/2.9.4/Chart.js">
 			<h2 class="section-title">Activity Overview</h2>
 			<div class="grid">
 				<div class="card">
-					<a href="activity_chart.php?date=<?php echo $dateID; ?>">
+					<a href="activity_chart.php?date=<?php echo $dateID; ?>&pet_id=<?php echo $selectedPet; ?>&dog_id=<?php echo $dogID; ?>">
 					<div class="card-body">
 						<h3 class="card-title">Activity Level</h3>
 						<div class="circular-progress-container">
@@ -198,7 +197,7 @@ src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/2.9.4/Chart.js">
 				</div>
 
 				<div class="card">
-					<a href="calorie_chart.php?date=<?php echo $dateID; ?>">
+					<a href="calorie_chart.php?date=<?php echo $dateID; ?>&pet_id=<?php echo $selectedPet; ?>&dog_id=<?php echo $dogID; ?>">
 					<div class="card-body">
 						<h3 class="card-title">Energy Balance</h3>
 						<div class="energy-balance-container">
@@ -261,7 +260,7 @@ src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/2.9.4/Chart.js">
 				</div>
 
 				<div class="card">
-					<a href="behaviour_chart.php?date=<?php echo $dateID; ?>">
+					<a href="behaviour_chart.php?date=<?php echo $dateID; ?>&pet_id=<?php echo $selectedPet; ?>&dog_id=<?php echo $dogID; ?>">
 					<div class="card-body">
 						<h3 class="card-title">Behavior Distribution</h3>
 						<canvas id="myChart" width="100%" height="180px"></canvas>
@@ -312,7 +311,7 @@ src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/2.9.4/Chart.js">
 			
 			<div class="row">
 				<div class="card">
-					<a href="barking_chart.php?date=<?php echo $dateID; ?>">
+					<a href="barking_chart.php?date=<?php echo $dateID; ?>&pet_id=<?php echo $selectedPet; ?>&dog_id=<?php echo $dogID; ?>">
 					<div class="card-body">
 						<h3 class="card-title">Barking Frequency</h3>
 						<div class="barking-container">
@@ -344,7 +343,7 @@ src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/2.9.4/Chart.js">
 			<h2 class="section-title">Vital Signs</h2>
 			<div class="grid">
 				<div class="card">
-					<a href="heart_chart.php?date=<?php echo $dateID; ?>">
+					<a href="heart_chart.php?date=<?php echo $dateID; ?>&pet_id=<?php echo $selectedPet; ?>&dog_id=<?php echo $dogID; ?>">
 					<div class="card-body">
 						<h3 class="card-title">Heart Rate</h3>
 						<div class="circular-progress-container">
@@ -362,7 +361,7 @@ src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/2.9.4/Chart.js">
 				</div>
 
 				<div class="card">
-					<a href="temperature_chart.php?date=<?php echo $dateID; ?>">
+					<a href="temperature_chart.php?date=<?php echo $dateID; ?>&pet_id=<?php echo $selectedPet; ?>&dog_id=<?php echo $dogID; ?>">
 					<div class="card-body">
 						<h3 class="card-title">Temperature</h3>
 						<div class="temperature-container">
@@ -393,7 +392,7 @@ src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/2.9.4/Chart.js">
 				</div>
 
 				<div class="card">
-					<a href="breathing_rate_chart.php?date=<?php echo $dateID; ?>">
+					<a href="breathing_rate_chart.php?date=<?php echo $dateID; ?>&pet_id=<?php echo $selectedPet; ?>&dog_id=<?php echo $dogID; ?>">
 					<div class="card-body">
 						<h3 class="card-title">Breathing Rate</h3>
 						<div class="circular-progress-container">
@@ -417,7 +416,7 @@ src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/2.9.4/Chart.js">
 			<h2 class="section-title">Nutrition & Hydration</h2>
 			<div class="grid">
 				<div class="card">
-					<a href="food_intake_chart.php?date=<?php echo $dateID; ?>">
+					<a href="food_intake_chart.php?date=<?php echo $dateID; ?>&pet_id=<?php echo $selectedPet; ?>&dog_id=<?php echo $dogID; ?>">
 					<div class="card-body">
 						<h3 class="card-title">Food Intake</h3>
 						<div class="kibble-container">
@@ -444,7 +443,7 @@ src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/2.9.4/Chart.js">
 				</div>
 
 				<div class="card">
-					<a href="water_intake_chart.php?date=<?php echo $dateID; ?>">
+					<a href="water_intake_chart.php?date=<?php echo $dateID; ?>&pet_id=<?php echo $selectedPet; ?>&dog_id=<?php echo $dogID; ?>">
 					<div class="card-body">
 						<h3 class="card-title">Water Intake</h3>
 						<div class="droplet-container">
@@ -1675,9 +1674,10 @@ src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/2.9.4/Chart.js">
 		background: #EF476F;
 		height: 100%;
 	}
-
+</style>
 	/* Replace the Barking animation with this cleaner code */
-		// Barking frequency animation
+	    /* Barking frequency animation*/
+<script>
 		const barkingMeters = document.querySelectorAll('.barking-meter');
 		
 		barkingMeters.forEach(meter => {
@@ -1735,9 +1735,6 @@ src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/2.9.4/Chart.js">
 				icon.style.boxShadow = '0 4px 15px rgba(255, 154, 0, 0.2)';
 			}, 8000);
 		}
-
-		// ... existing code ...
-	});
 </script>
 
 <style>
@@ -2339,6 +2336,30 @@ document.addEventListener('DOMContentLoaded', function() {
             checkVitalSigns(heartRate, temperature, steps, waterIntake);
         }, 1000);
     });
+</script>
+
+<script>
+    // Function to fetch data for a specific hour
+    function fetchHourData(hour) {
+        fetch(`fetch_dog_data.php?hour=${hour}&date=${currentDate}&dog_id=<?php echo $dogID; ?>`)
+            .then(response => response.json())
+            .then(data => {
+                // Process the data and update the dashboard
+                updateDashboard(data);
+            })
+            .catch(error => console.error('Error:', error));
+    }
+
+    // Function to fetch data for a specific date
+    function fetchDateData(date) {
+        fetch(`fetch_dog_data.php?date=${date}&dog_id=<?php echo $dogID; ?>`)
+            .then(response => response.json())
+            .then(data => {
+                // Process the data and update the dashboard
+                updateDashboard(data);
+            })
+            .catch(error => console.error('Error:', error));
+    }
 </script>
 </body>
 </html>

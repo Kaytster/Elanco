@@ -1,6 +1,9 @@
 <?php
 // Get date parameter or set default
 $date = isset($_GET['date']) ? $_GET['date'] : date('Y-m-d');
+// Get pet_id and dog_id parameters
+$petId = isset($_GET['pet_id']) ? $_GET['pet_id'] : 'Snoopy';
+$dogId = isset($_GET['dog_id']) ? $_GET['dog_id'] : 'CANINE001';
 ?>
 <!DOCTYPE html>
 <html lang="en">
@@ -87,7 +90,7 @@ $date = isset($_GET['date']) ? $_GET['date'] : date('Y-m-d');
 </head>
 <body>
     <div class="container">
-        <a href="dashboard.php?date=<?php echo $date; ?>" class="back-link">
+        <a href="dashboard.php?date=<?php echo $date; ?>&pet_id=<?php echo $petId; ?>&dog_id=<?php echo $dogId; ?>" class="back-link">
             <i class="fas fa-arrow-left"></i> Back to Dashboard
         </a>
         
@@ -123,7 +126,7 @@ $date = isset($_GET['date']) ? $_GET['date'] : date('Y-m-d');
         const queryDate = '<?php echo date('d-m-Y', strtotime($date)); ?>';
         
         // Fetch data from the server
-        fetch('fetch_dog_data.php?date=' + queryDate)
+        fetch(`fetch_dog_data.php?date=${queryDate}&dog_id=<?php echo $dogId; ?>`)
         .then(response => response.json())
         .then(data => {
             const hours = data.map(d => d.Hour);
